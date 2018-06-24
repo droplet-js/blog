@@ -14,7 +14,7 @@ mongoose.connect(config.db.url)
 app
     .use(logger())
     .use(bodyParser())
-    .use(serve(path.join(__dirname, 'static')))
+    .use(serve(path.join(__dirname, config.publicPath)))
     .use(router.routes())
     .use(router.allowedMethods())
 
