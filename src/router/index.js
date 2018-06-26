@@ -1,5 +1,5 @@
-import home from '@/components/home'
 import index from '@/views/index'
+import home from '@/views/home'
 
 const routes = [
     {

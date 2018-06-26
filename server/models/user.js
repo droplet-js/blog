@@ -1,5 +1,5 @@
-let mongoose = require('mongoose')
-let Schema = mongoose.Schema
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 let UserSchema = new Schema({
     name: String
@@ -7,4 +7,4 @@ let UserSchema = new Schema({
 
 let User = mongoose.model('User', UserSchema)
 
-export default User
+module.exports = User

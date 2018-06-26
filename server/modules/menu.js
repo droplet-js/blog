@@ -1,13 +1,15 @@
-import { Menu } from '../models'
+const Menu = require('../models/menu')
 
-export default {
-    getMenuList (ctx, next) {
-        let promise = new Promise((resolve, reject) => {
-            Menu.find({}).exec((err, res) => {
-                if (err) reject(err)
-                resolve(res)
-            })
+module.exports = {
+    // 获取菜单列表
+    async getMenuList (ctx, next) {
+        // ctx.body = 'hello'
+        Menu.find({}).exec((err, res) => {
+            if (err) ctx.body = {code: -1, data: err}
+            ctx.body = {code: 0, data: res}
         })
-        return promise
+        let data = await Menu.find({}).exec()
+        console.log(data)
+        ctx.body = {code: 0, data: data}
     }
 }

@@ -7,4 +7,4 @@ const config = {
     publicPath: './static'
 }
 
-export default config
+module.exports = config

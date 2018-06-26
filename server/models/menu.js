@@ -1,7 +1,10 @@
-let mongoose = require('mongoose')
+const mongoose = require('mongoose')
+// const baseMode = require('./base_model')
+
 let Schema = mongoose.Schema
 
 let MenuSchema = new Schema({
+    id: Number,
     name: String, // 菜单名称
     icon: String, // 菜单图标
     url: String, // 菜单链接
@@ -15,6 +18,10 @@ let MenuSchema = new Schema({
     }
 })
 
+MenuSchema.index({id: -1})
+
+// MenuSchema.plugin(baseModel)
+
 let Menu = mongoose.model('Menu', MenuSchema)
 
-export default Menu
+module.exports = Menu

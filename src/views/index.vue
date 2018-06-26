@@ -1,10 +1,10 @@
 <template>
     <div>
         <mu-appbar style="width: 100%;" :color="bgColor">
-            <mu-button icon slot="left">
+            <mu-button icon slot="left" @click="toggleMenu">
                 <mu-icon size="20" value=":fa fa-bars fa-5x"></mu-icon>
             </mu-button>
-            <mu-button flat slot="right">
+            <mu-button flat slot="right" :href="githubUrl">
                 <mu-icon size="24" value=":fa fa-github fa-5x"></mu-icon>
             </mu-button>
         </mu-appbar>
@@ -41,18 +41,37 @@
         </div>
 
         <div class="footer">
-            <p>The blog was created by <a class="key" href="https://github.com/halaproliu">@halapro.liu</a></p>
-            <p><a class="key" href="https://vuejs.org/">Vuejs</a> & <a class="key" href="https://muse-ui.org/#/zh-CN/icon">MuseUI</a></p>
+            <p>The blog was created by <a class="key" :href="githubUrl">@halapro.liu</a></p>
+            <p><a class="key" :href="vueUrl">Vuejs</a> & <a class="key" :href="museuiUrl">MuseUI</a></p>
             <i class="fa fa-github fa-2x"></i>
         </div>
+
+        <Menu :open="open" :docked="docked" @close="closeMenu"></Menu>
     </div>
 </template>
 
 <script>
+import Menu from '../components/menu'
 export default {
+    components: {
+        Menu
+    },
     data () {
         return {
-            bgColor: '#00bed4'
+            bgColor: '#00bed4',
+            githubUrl: 'https://github.com/halaproliu',
+            museuiUrl: 'https://muse-ui.org/#/zh-CN',
+            vueUrl: 'https://vuejs.org',
+            open: false,
+            docked: false
+        }
+    },
+    methods: {
+        toggleMenu () {
+            this.open = !this.open
+        },
+        closeMenu (val) {
+            this.open = val
         }
     }
 }
