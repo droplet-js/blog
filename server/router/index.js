@@ -1,8 +1,8 @@
+import { getMenuList } from '../modules/menu'
+
 const Router = require('koa-router')
 const router = new Router()
 
-router.get('/', (ctx, next) => {
-    ctx.body = 'hello world'
-})
+router.get('/api/getMenuList', getMenuList)
 
 export default router

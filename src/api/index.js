@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { baseURL } from '../config'
+import config from '../config'
 
 // create an axios instance
 const api = axios.create({
-    baseURL: baseURL
+    baseURL: config.baseURL
 })
 
-api.defaults.headers.common['Authorization'] = ''
+// api.defaults.headers.common['Authorization'] = ''
 api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // request interceptor
