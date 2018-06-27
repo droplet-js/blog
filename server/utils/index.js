@@ -4,5 +4,6 @@ module.exports = {
         const middleware = middlewares.shift()
         if (!middleware) return
         app.use(middleware)
+        this.loadMiddlewares(app, middlewares)
     }
 }

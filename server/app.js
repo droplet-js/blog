@@ -7,10 +7,13 @@ const bodyParser = require('koa-bodyparser')
 const serve = require('koa-static')
 const cors = require('koa-cors');
 const convert = require('koa-convert');
+const errorHandler = require('./middlewares/errorhandler')
 const app = new Koa()
 
 const mongoose = require('mongoose')
 mongoose.connect(config.db.url)
+
+const port = config.port || '8080'
 
 // middlewares
 const middlewares = [
@@ -18,6 +21,7 @@ const middlewares = [
     logger(),
     bodyParser(),
     serve(path.join(__dirname, config.publicPath)),
+    errorHandler,
     router.routes(),
     router.allowedMethods()
 ]
@@ -29,22 +33,13 @@ middlewares.forEach(middleware => {
     app.use(middleware)
 })
 
-// koa middlewares
-// app
-//     .use(convert(cors()))
-//     .use(logger())
-//     .use(bodyParser())
-//     .use(serve(path.join(__dirname, config.publicPath)))
-//     .use(router.routes())
-//     .use(router.allowedMethods())
-
 app.on('error', (err) => {
     console.log(err)
 })
 
 // koa static server
-const server = app.listen(config.port, () => {
-    console.log('The server is start on port ' + config.port)
+const server = app.listen(port, () => {
+    console.log('The server is start on port ' + port)
 })
 
 // terminal ctrl+c to exit the server
