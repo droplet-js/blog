@@ -9,15 +9,18 @@
           </mu-button>
       </mu-appbar>
       <Menu :open="open" :docked="docked"></Menu>
+      <Container></Container>
     </div>
 </template>
 
 <script>
 import Menu from '../components/menu'
+import Container from '../components/container'
 import { colors } from '../constant'
 export default {
     components: {
-        Menu
+        Menu,
+        Container
     },
     data () {
         return {
