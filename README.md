@@ -11,6 +11,12 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
+# node serve with hot reload at localhost:3000
+npm run server
+
+# front serve and end serve with hot reload at localhost:8080 and localhost:3000
+npm start
+
 # build for production with minification
 npm run build
 

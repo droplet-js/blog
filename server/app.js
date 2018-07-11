@@ -43,7 +43,7 @@ const server = app.listen(port, () => {
 })
 
 // terminal ctrl+c to exit the server
-process.on('SIGTERM', () => {
+process.on('SIGINT', () => {
     console.log('Stopping dev server')
     server.close(() => {
         process.exit(0)

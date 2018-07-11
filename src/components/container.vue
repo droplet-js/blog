@@ -65,7 +65,7 @@
             </mu-paper>
 
             <mu-flex class="item-pagination" justify-content="center">
-                <mu-pagination :total="1000" :current.sync="current"></mu-pagination>
+                <mu-pagination :total="total" :current.sync="current" :page-size="pageSize" :page-count="pageCount"></mu-pagination>
             </mu-flex>
 
             <div class="footer">
@@ -79,7 +79,24 @@
 
 <script>
 export default {
-    props: {},
+    props: {
+        total: {
+            type: Number,
+            default: 1
+        },
+        current: {
+            type: Number,
+            default: 1
+        },
+        pageSize: {
+            type: Number,
+            default: 5
+        },
+        pageCount: {
+            type: Number,
+            default: 7
+        }
+    },
     data () {
         return {
             githubUrl: 'https://github.com/halaproliu',

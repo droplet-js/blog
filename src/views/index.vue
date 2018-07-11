@@ -12,7 +12,7 @@
             <img class="logo" src="../assets/img/logo.png" alt="">
             <div class="bg-desc">
                 <h1>halapro.liu Blog</h1>
-                <h2>A simple Blog used by halapro.liu.Which is learn by Song Zhou</h2>
+                <h2>A simple Blog used by halapro.liu</h2>
             </div>
             <mu-button to="/home" class="post-btn" size="15" color="#fff" textColor="#00bcd4">Go for Posts</mu-button>
         </div>

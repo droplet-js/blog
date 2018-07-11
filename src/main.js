@@ -6,11 +6,13 @@ import VueRouter from 'vue-router'
 import Routers from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
+import mavonEditor from 'mavon-editor'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.use(MuseUI)
+Vue.use(mavonEditor)
 
 // The routing configuration
 const RouterConfig = {
