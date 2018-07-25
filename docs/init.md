@@ -1,5 +1,6 @@
+## 初始化menu
+```javascript
 var db = {}
-// 初始化menu
 db.getCollection('menus').insertMany([{
     id: '1',
     name: 'Go Home',
@@ -15,3 +16,4 @@ db.getCollection('menus').insertMany([{
     createAt: Date(),
     updateAt: Date()
 }])
+```
