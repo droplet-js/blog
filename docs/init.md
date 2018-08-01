@@ -1,5 +1,6 @@
 ## 初始化menu
 ```js
+// 在mongodb中
 db.getCollection('menus').insertMany([{
     id: '1',
     name: 'Go Home',
