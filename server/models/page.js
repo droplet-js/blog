@@ -4,14 +4,17 @@ const mongoose = require('mongoose')
 let Schema = mongoose.Schema
 
 let PageSchema = new Schema({
-    title: String,
-    content: String,
-    keyword: String,
-    createAt: {
+    id: String,
+    title: String, // 标题
+    content: String, // 内容
+    keyword: String, // 关键词
+    reads: Number, // 阅读数
+    comments: Number, // 评论
+    createAt: { // 创建时间
         type: Date,
         default: Date.now()
     },
-    updateAt: {
+    updateAt: { // 修改时间
         type: Date,
         default: Date.now()
     }

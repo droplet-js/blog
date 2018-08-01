@@ -1,5 +1,6 @@
 import index from '@/views/index'
 import home from '@/views/home'
+import editor from '@/views/editor'
 
 const routes = [
     {
@@ -11,6 +12,11 @@ const routes = [
         path: '/home',
         name: 'home',
         component: home
+    },
+    {
+        path: '/editor',
+        name: 'editor',
+        component: editor
     }
 ]
 
