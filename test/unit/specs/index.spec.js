@@ -1,23 +1,24 @@
-import Vue from 'vue'
-import MuseUI from 'muse-ui'
-import index from '@/views/index'
-import VueRouter from 'vue-router'
-import Routers from '../../../src/router'
+// import Vue from 'vue'
+// import MuseUI from 'muse-ui'
+import Index from '@/views/index'
 
-Vue.use(VueRouter)
-Vue.use(MuseUI)
+// Vue.use(MuseUI)
 
-const RouterConfig = {
-    routes: Routers
-}
-
-const router = new VueRouter(RouterConfig)
-
-describe('index.vue', () => {
-    it('should render correct contents', () => {
-        const Constructor = Vue.extend(index)
-        const vm = new Constructor({router}).$mount()
-        expect(vm.$el.querySelector('.bg-desc h1').textContent)
-            .to.equal('halapro.liu Blog')
+describe('Index.vue', () => {
+    it('sets the correct default data', () => {
+        expect(typeof Index.data).to.equal('function')
+        const defaultData = Index.data()
+        expect(defaultData.bgColor).to.equal('#00bed4')
+        expect(defaultData.githubUrl).to.equal('https://github.com/halaproliu')
+        expect(defaultData.museuiUrl).to.equal('https://muse-ui.org/#/zh-CN')
+        expect(defaultData.vueUrl).to.equal('https://vuejs.org')
+        expect(defaultData.open).to.equal(false)
+        expect(defaultData.docked).to.equal(false)
+        expect(typeof Index.methods).to.equal('object')
     })
+
+    // it('test methods has correct result', () => {
+    //     const vm = new Vue(Index).$mount()
+    //     expect(vm.toggleMenu()).to.equal(true)
+    // })
 })
