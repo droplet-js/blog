@@ -67,13 +67,12 @@
             <mu-flex class="item-pagination" justify-content="center">
                 <mu-pagination :total="total" :current.sync="current" :page-size="pageSize" :page-count="pageCount"></mu-pagination>
             </mu-flex>
-
-            <div class="footer">
-                <p>The blog was created by <a class="key" :href="githubUrl">@halapro.liu</a></p>
-                <p><a class="key" :href="vueUrl">Vuejs</a> & <a class="key" :href="museuiUrl">MuseUI</a></p>
-                <i class="fa fa-github fa-2x"></i>
-            </div>
         </mu-container>
+        <div class="footer">
+            <p>The blog was created by <a class="key" :href="githubUrl">@halapro.liu</a></p>
+            <p><a class="key" :href="vueUrl">Vuejs</a> & <a class="key" :href="museuiUrl">MuseUI</a></p>
+            <i class="fa fa-github fa-2x"></i>
+        </div>
     </div>
 </template>
 

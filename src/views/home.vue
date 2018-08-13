@@ -1,39 +1,32 @@
 <template>
     <div>
-      <mu-appbar class="wj-home-appbar" :class="[open ? '': 'close']" :color="colors.bgcolor">
-          <mu-button icon slot="left" @click="toggleMenu">
+      <mu-appbar class="wj-home-appbar" :color="colors.bgcolor">
+      <!-- <mu-appbar class="wj-home-appbar" :class="[open ? '': 'close']" :color="colors.bgcolor"> -->
+          <!-- <mu-button icon slot="left" @click="toggleMenu">
               <mu-icon size="18" value=":fa fa-bars"></mu-icon>
-          </mu-button>
-          <mu-button icon slot="right">
+          </mu-button> -->
+          <mu-button icon slot="right" :href="githubUrl">
               <mu-icon size="18" value=":fa fa-github"></mu-icon>
           </mu-button>
       </mu-appbar>
-      <Menu :open="open" :docked="docked"></Menu>
       <Container></Container>
     </div>
 </template>
 
 <script>
-import Menu from '../components/menu'
 import Container from '../components/container'
 import { colors } from '../constant'
 export default {
     components: {
-        Menu,
         Container
     },
     data () {
         return {
-            open: true,
-            docked: true,
-            colors: colors
+            colors: colors,
+            githubUrl: 'https://github.com/halaproliu'
         }
     },
-    methods: {
-        toggleMenu () {
-            this.open = !this.open
-        }
-    }
+    methods: {}
 }
 </script>
 

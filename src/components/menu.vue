@@ -42,15 +42,16 @@ export default {
     },
     methods: {
         init () {
-            api.get('/getMenuList')
-                .then(res => {
-                    if (res.code === 0) {
-                        this.menuList = res.data
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            this.getMenuList()
+        },
+        // 获取菜单列表
+        async getMenuList () {
+            try {
+                let res = await api.get('/getMenuList')
+                res.code === 0 && (this.menuList = res.data)
+            } catch (err) {
+                console.log(err)
+            }
         },
         closeMenu (val) {
             if (val === 'overlay') {

@@ -1,13 +1,54 @@
 <template>
   <div id="app">
-      <!-- <img src="./assets/logo.png"> -->
-      <router-view/>
+      <Menu :open="open" :docked="docked" @close="closeMenu"></Menu>
+      <router-view @toggleMenu="toggleMenu" />
   </div>
 </template>
 
 <script>
+import Menu from './components/menu'
 export default {
-    name: 'App'
+    name: 'App',
+    components: {
+        Menu
+    },
+    data () {
+        return {
+            open: true,
+            docked: true
+        }
+    },
+    created () {
+        this.initMenu()
+    },
+    methods: {
+        initMenu () {
+            switch (this.$route.name) {
+            case 'index':
+                this.open = false
+                this.docked = false
+                break
+            case 'home':
+                this.open = true
+                this.docked = true
+                break
+            default:
+                this.open = true
+                this.docked = true
+            }
+        },
+        // 打开关闭菜单
+        toggleMenu () {
+            this.open = !this.open
+        },
+        // 点击遮罩关闭菜单
+        closeMenu (val) {
+            this.open = val
+        }
+    },
+    watch: {
+        $route: 'initMenu'
+    }
 }
 </script>
 

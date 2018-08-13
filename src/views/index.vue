@@ -46,32 +46,22 @@
             <i class="fa fa-github fa-2x"></i>
         </div>
 
-        <Menu :open="open" :docked="docked" @close="closeMenu"></Menu>
     </div>
 </template>
 
 <script>
-import Menu from '../components/menu'
 export default {
-    components: {
-        Menu
-    },
     data () {
         return {
             bgColor: '#00bed4',
             githubUrl: 'https://github.com/halaproliu',
             museuiUrl: 'https://muse-ui.org/#/zh-CN',
-            vueUrl: 'https://vuejs.org',
-            open: false,
-            docked: false
+            vueUrl: 'https://vuejs.org'
         }
     },
     methods: {
         toggleMenu () {
-            this.open = !this.open
-        },
-        closeMenu (val) {
-            this.open = val
+            this.$emit('toggleMenu')
         }
     }
 }

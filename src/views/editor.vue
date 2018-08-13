@@ -1,6 +1,6 @@
 <template>
     <div class="editor">
-        <Menu :open="open" :docked="docked"></Menu>
+        <!-- <Menu :open="open" :docked="docked"></Menu> -->
         <div id="editor-area">
             <mavon-editor v-model="value"/>
             <mu-button class="commit-btn" color="success" @click="onCommit">commit</mu-button>
@@ -9,16 +9,16 @@
 </template>
 
 <script>
-import Menu from '../components/menu'
+// import Menu from '../components/menu'
 export default {
-    components: {
-        Menu
-    },
+    // components: {
+    //     Menu
+    // },
     data () {
         return {
             value: '',
-            open: true,
-            docked: true
+            // open: true,
+            // docked: true
         }
     },
     methods: {

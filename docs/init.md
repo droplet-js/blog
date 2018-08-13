@@ -15,5 +15,12 @@ db.getCollection('menus').insertMany([{
     url: '/home',
     createAt: Date(),
     updateAt: Date()
+},{
+    id: '2',
+    name: 'New Post',
+    icon: ':fa fa-pencil',
+    url: '/editor',
+    createAt: Date(),
+    updateAt: Date()
 }])
 ```
