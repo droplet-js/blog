@@ -33,38 +33,4 @@ api.interceptors.response.use(res => {
     return Promise.reject(err)
 })
 
-let http = {
-    get: function (url, params) {
-        return new Promise((resolve, reject) => {
-            api.get(url, {
-                params: params
-            }).then(res => {
-                resolve(res)
-            }).catch(err => {
-                reject(err)
-            })
-        })
-    },
-    post: function (url, params) {
-        return new Promise((resolve, reject) => {
-            api.post(url, params).then(res => {
-                resolve(res)
-            }).catch(err => {
-                reject(err)
-            })
-        })
-    },
-    delete: function (url, params) {
-        return new Promise((resolve, reject) => {
-            api.delete(url, {
-                params: params
-            }).then(res => {
-                resolve(res)
-            }).catch(err => {
-                reject(err)
-            })
-        })
-    }
-}
-
-export default http
+export default api

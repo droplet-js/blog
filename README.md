@@ -20,7 +20,7 @@ db.getCollection('menus').insertMany([{
     createAt: Date(),
     updateAt: Date()
 },{
-    id: '2',
+    id: '3',
     name: 'New Post',
     icon: ':fa fa-pencil',
     url: '/editor',

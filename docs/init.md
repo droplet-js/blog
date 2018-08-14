@@ -11,12 +11,12 @@ db.getCollection('menus').insertMany([{
 },{
     id: '2',
     name: 'All Posts',
-    icon: ':fa fa-pencil',
+    icon: ':fa fa-list-ul',
     url: '/home',
     createAt: Date(),
     updateAt: Date()
 },{
-    id: '2',
+    id: '3',
     name: 'New Post',
     icon: ':fa fa-pencil',
     url: '/editor',
