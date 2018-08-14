@@ -5,9 +5,10 @@ const Koa = require('koa')
 const logger = require('koa-logger')
 const bodyParser = require('koa-bodyparser')
 const serve = require('koa-static')
-const cors = require('koa-cors');
-const convert = require('koa-convert');
+const cors = require('koa-cors')
+const convert = require('koa-convert')
 const errorHandler = require('./middlewares/errorhandler')
+const log = require('./utils/log')
 const app = new Koa()
 
 const mongoose = require('mongoose')
@@ -39,12 +40,12 @@ app.on('error', (err) => {
 
 // koa static server
 const server = app.listen(port, () => {
-    console.log('The server is start on port ' + port)
+    log('magenta', 'The server is start on port ' + port)
 })
 
 // terminal ctrl+c to exit the server
 process.on('SIGINT', () => {
-    console.log('Stopping dev server')
+    log('yellow', 'Stopping dev server')
     server.close(() => {
         process.exit(0)
     })
