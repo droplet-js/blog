@@ -3,8 +3,8 @@
         <mu-appbar :color="colors.bgcolor" style="text-align: left;">
           HL Blog
         </mu-appbar>
-        <mu-list>
-            <mu-list-item button :to="menu.url" v-for="menu in menuList" :key="menu.id">
+        <mu-list :value="selectedMenu" @change="onMenuChange">
+            <mu-list-item :class="{'selected-item': selectedMenu === menu.url}" button :value="menu.url" :to="menu.url" v-for="menu in menuList" :key="menu.id">
                 <mu-list-item-title>
                     <mu-icon :value="menu.icon" :color="iconColor"></mu-icon>
                     <span class="wj-list-title">{{menu.name}}</span>
@@ -30,6 +30,10 @@ export default {
         position: {
             type: String,
             default: 'left'
+        },
+        selected: {
+            type: String,
+            default: '/'
         }
     },
     data () {
@@ -37,8 +41,12 @@ export default {
             bgColor: '#00bed4',
             iconColor: '#757575',
             colors: colors,
-            menuList: []
+            menuList: [],
+            selectedMenu: '/'
         }
+    },
+    created () {
+        this.init()
     },
     methods: {
         init () {
@@ -57,10 +65,15 @@ export default {
             if (val === 'overlay') {
                 this.$emit('close', false)
             }
+        },
+        onMenuChange (value) {
+            this.$emit('onMenuChange', value)
         }
     },
-    created () {
-        this.init()
+    watch: {
+        selected (val) {
+            this.selectedMenu = val
+        }
     }
 }
 </script>
@@ -70,5 +83,9 @@ export default {
 
 .wj-list-title {
     margin-left: 24px;
+}
+
+.selected-item {
+    background: rgba(0, 0, 0, .2)
 }
 </style>

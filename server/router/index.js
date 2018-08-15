@@ -3,6 +3,7 @@ const page = require('../modules/page')
 const router = require('koa-router')()
 
 router.get('/api/getMenuList', menu.getMenuList)
-router.get('/api/savePage', page.savePage)
+router.get('/api/getPage', page.getPage)
+router.post('/api/savePage', page.savePage)
 
 module.exports = router

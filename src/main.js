@@ -7,6 +7,7 @@ import Routers from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import mavonEditor from 'mavon-editor'
+import Toast from 'muse-ui-toast'
 import 'mavon-editor/dist/css/index.css'
 
 Vue.config.productionTip = false
@@ -14,6 +15,9 @@ Vue.config.productionTip = false
 Vue.use(VueRouter)
 Vue.use(MuseUI)
 Vue.use(mavonEditor)
+Vue.use(Toast, {
+    position: 'top'
+})
 
 // The routing configuration
 const RouterConfig = {

@@ -25,10 +25,10 @@
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
-    "material-design-icons": "^3.0.1",
     "mavon-editor": "^2.6.15",
     "mongoose": "^5.1.6",
     "muse-ui": "^3.0.0-rc.2",
+    "muse-ui-toast": "^0.3.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

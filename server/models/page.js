@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// const baseMode = require('./base_model')
+const baseModel = require('./base_model')
 
 let Schema = mongoose.Schema
 
@@ -10,6 +10,8 @@ let PageSchema = new Schema({
     keyword: String, // 关键词
     reads: Number, // 阅读数
     comments: Number, // 评论
+    userId: String, // 作者
+    avatar: String, // 头像
     createAt: { // 创建时间
         type: Date,
         default: Date.now()
@@ -22,7 +24,7 @@ let PageSchema = new Schema({
 
 PageSchema.index({id: -1})
 
-// PageSchema.plugin(baseModel)
+PageSchema.plugin(baseModel)
 
 let Page = mongoose.model('Page', PageSchema)
 

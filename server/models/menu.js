@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-// const baseMode = require('./base_model')
+const baseModel = require('./base_model')
 
 let Schema = mongoose.Schema
 
@@ -20,7 +20,7 @@ let MenuSchema = new Schema({
 
 MenuSchema.index({id: -1})
 
-// MenuSchema.plugin(baseModel)
+MenuSchema.plugin(baseModel)
 
 let Menu = mongoose.model('Menu', MenuSchema)
 

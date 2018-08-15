@@ -1,7 +1,24 @@
 <template>
     <div class="wj-container">
         <mu-container>
-            <mu-paper class="item-paper" :z-depth="1">
+            <mu-paper class="item-paper" :z-depth="1" v-for="(page, index) in pages" :key="index">
+                <mu-flex class="item-paper-title" justify-content="between" align-items="center">
+                    <mu-flex align-items="center">
+                        <mu-avatar>
+                            <img src="../assets/img/timg.jpg" alt="">
+                        </mu-avatar>
+                        <span class="item-paper-name">halapro.liu</span>
+                    </mu-flex>
+                    <mu-button class="item-paper-button" color="secondary" :ripple="true">Read</mu-button>
+                </mu-flex>
+                <p class="item-paper-sub-title">
+                    {{page.title}}
+                </p>
+                <p class="item-paper-content">
+                    {{page.content}}
+                </p>
+            </mu-paper>
+            <!-- <mu-paper class="item-paper" :z-depth="1">
                 <mu-flex class="item-paper-title" justify-content="between" align-items="center">
                     <mu-flex align-items="center">
                         <mu-avatar>
@@ -31,38 +48,7 @@
 
                     （8） 避免在页面的主体布局中使用table，table要等其中的内容完全下载之后才会显示出来，显示比div+css布局慢。
                 </p>
-            </mu-paper>
-            <mu-paper class="item-paper" :z-depth="1">
-                <mu-flex class="item-paper-title" justify-content="between" align-items="center">
-                    <mu-flex align-items="center">
-                        <mu-avatar>
-                            <img src="../assets/img/timg.jpg" alt="">
-                        </mu-avatar>
-                        <span class="item-paper-name">halapro.liu</span>
-                    </mu-flex>
-                    <mu-button class="item-paper-button" color="secondary" :ripple="true">Read</mu-button>
-                </mu-flex>
-                <p class="item-paper-sub-title">
-                    前端性能优化的方法
-                </p>
-                <p class="item-paper-content">
-                    （1） 减少http请求次数：CSS Sprites, JS、CSS源码压缩、图片大小控制合适；网页Gzip，CDN托管，data缓存 ，图片服务器。
-
-                    （2） 前端模板 JS+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数
-
-                    （3） 用innerHTML代替DOM操作，减少DOM操作次数，优化javascript性能。
-
-                    （4） 当需要设置的样式很多时设置className而不是直接操作style。
-
-                    （5） 少用全局变量、缓存DOM节点查找的结果。减少IO读取操作。
-
-                    （6） 避免使用CSS Expression（css表达式)又称Dynamic properties(动态属性)。
-
-                    （7） 图片预加载，将样式表放在顶部，将脚本放在底部 加上时间戳。
-
-                    （8） 避免在页面的主体布局中使用table，table要等其中的内容完全下载之后才会显示出来，显示比div+css布局慢。
-                </p>
-            </mu-paper>
+            </mu-paper> -->
 
             <mu-flex class="item-pagination" justify-content="center">
                 <mu-pagination :total="total" :current.sync="current" :page-size="pageSize" :page-count="pageCount"></mu-pagination>
@@ -77,6 +63,7 @@
 </template>
 
 <script>
+import api from '../api'
 export default {
     props: {
         total: {
@@ -100,7 +87,22 @@ export default {
         return {
             githubUrl: 'https://github.com/halaproliu',
             museuiUrl: 'https://muse-ui.org/#/zh-CN',
-            vueUrl: 'https://vuejs.org'
+            vueUrl: 'https://vuejs.org',
+            pages: []
+        }
+    },
+    created () {
+        this.getPaperList()
+    },
+    methods: {
+        async getPaperList () {
+            try {
+                let res = await api.get('/getPage')
+                res.code === 0 && (this.pages = res.data)
+            } catch (err) {
+                console.log(err)
+                this.$toast.error('获取文章失败！')
+            }
         }
     }
 }

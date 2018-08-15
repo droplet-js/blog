@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-      <Menu :open="open" :docked="docked" @close="closeMenu"></Menu>
-      <router-view @toggleMenu="toggleMenu" />
+      <Menu :open="open" :docked="docked" @close="closeMenu" @onMenuChange="onMenuChange" :selected="selected"></Menu>
+      <router-view @toggleMenu="toggleMenu" @onMenuChange="onMenuChange" />
   </div>
 </template>
 
@@ -15,7 +15,8 @@ export default {
     data () {
         return {
             open: true,
-            docked: true
+            docked: true,
+            selected: '/'
         }
     },
     created () {
@@ -44,6 +45,10 @@ export default {
         // 点击遮罩关闭菜单
         closeMenu (val) {
             this.open = val
+        },
+        // 菜单改变
+        onMenuChange (val) {
+            this.selected = val
         }
     },
     watch: {
