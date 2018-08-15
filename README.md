@@ -33,6 +33,10 @@ db.getCollection('menus').insertMany([{
 
 **Main Page**: [fontawesome](http://fontawesome.dashgame.com/)
 
+## Material Icons
+
+**Main Page** [Material Icons](http://google.github.io/material-design-icons/#getting-icons)
+
 ## Build Setup
 
 ``` bash
