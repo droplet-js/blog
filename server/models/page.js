@@ -4,7 +4,7 @@ const baseModel = require('./base_model')
 let Schema = mongoose.Schema
 
 let PageSchema = new Schema({
-    id: String,
+    id: Number,
     title: String, // 标题
     content: String, // 内容
     keyword: String, // 关键词

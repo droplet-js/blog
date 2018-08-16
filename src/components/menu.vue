@@ -51,6 +51,10 @@ export default {
     methods: {
         init () {
             this.getMenuList()
+            this.setSelectedMenu()
+        },
+        setSelectedMenu () {
+            this.selectedMenu = this.$route.path
         },
         // 获取菜单列表
         async getMenuList () {

@@ -1,7 +1,7 @@
 <template>
     <div class="wj-container">
         <mu-container>
-            <!-- <mu-paper class="item-paper" :z-depth="1" v-for="(page, index) in pages" :key="index">
+            <mu-paper class="item-paper" :z-depth="1" v-for="(page, index) in pages" :key="index">
                 <mu-flex class="item-paper-title" justify-content="between" align-items="center">
                     <mu-flex align-items="center">
                         <mu-avatar>
@@ -9,25 +9,13 @@
                         </mu-avatar>
                         <span class="item-paper-name">halapro.liu</span>
                     </mu-flex>
-                    <mu-button class="item-paper-button" color="secondary" :ripple="true">Read</mu-button>
+                    <mu-button @click="gotoDetail(page)" class="item-paper-button" color="secondary" :ripple="true">Read</mu-button>
                 </mu-flex>
                 <p class="item-paper-sub-title">
                     {{page.title}}
                 </p>
-                <p class="item-paper-content">
-                    {{page.content}}
-                </p>
-            </mu-paper> -->
-            <mu-card class="item-card" v-for="(page, index) in pages" :key="index">
-                <mu-card-header :title="page.title">
-                    <mu-avatar slot="avatar">
-                        <img src="../assets/img/timg.jpg" alt="">
-                    </mu-avatar>
-                </mu-card-header>
-                <mu-card-text>
-                    {{page.content}}
-                </mu-card-text>
-            </mu-card>
+                <p class="item-paper-content" v-html="wordFilter(marked(page.content), 150)"></p>
+            </mu-paper>
 
             <mu-flex class="item-pagination" justify-content="center">
                 <mu-pagination :total="total" :current.sync="current" :page-size="pageSize" :page-count="pageCount"></mu-pagination>
@@ -43,6 +31,8 @@
 
 <script>
 import api from '../api'
+import marked from 'marked'
+import { wordFilter } from '../filters'
 export default {
     props: {
         total: {
@@ -67,7 +57,9 @@ export default {
             githubUrl: 'https://github.com/halaproliu',
             museuiUrl: 'https://muse-ui.org/#/zh-CN',
             vueUrl: 'https://vuejs.org',
-            pages: []
+            pages: [],
+            marked: marked,
+            wordFilter: wordFilter
         }
     },
     created () {
@@ -82,6 +74,9 @@ export default {
                 console.log(err)
                 this.$toast.error('获取文章失败！')
             }
+        },
+        gotoDetail (item) {
+            this.$router.push(`/detail/${item.id}`)
         }
     }
 }
@@ -95,14 +90,8 @@ export default {
     margin-left: 256px;
 }
 
-.item-card {
-    width: 100%;
-    margin: 0 auto;
-    max-width: calc(100% - 256px);
-}
-
 .item-paper {
-    margin: 48px 72px;
+    margin: 48px 0;
     .item-paper-title {
         margin-left: 20px;
         padding-top: 20px;

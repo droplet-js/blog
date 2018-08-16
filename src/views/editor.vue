@@ -15,11 +15,7 @@
 <script>
 import Validator from '../utils/validator'
 import api from '../api'
-import { mavonEditor } from 'mavon-editor'
 export default {
-    components: {
-        mavonEditor
-    },
     data () {
         return {
             title: '', // 标题
@@ -32,9 +28,6 @@ export default {
             showAlert: false // 是否显示alert框
         }
     },
-    mounted () {
-        console.log(mavonEditor.getMarkdownIt())
-    },
     methods: {
         // 验证条件
         validate () {
@@ -45,6 +38,7 @@ export default {
             let errorMsg = validator.start()
             return errorMsg
         },
+        // 创建文章
         async onCommit () {
             try {
                 let errorMsg = this.validate()
