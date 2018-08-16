@@ -14,7 +14,7 @@
                 <h1>halapro.liu Blog</h1>
                 <h2>A simple Blog used by halapro.liu</h2>
             </div>
-            <mu-button to="/home" class="post-btn" size="15" color="#fff" textColor="#00bcd4">Go for Posts</mu-button>
+            <mu-button @click="onMenuChange" to="/home" class="post-btn" size="15" color="#fff" textColor="#00bcd4">Go for Posts</mu-button>
         </div>
 
         <div class="content">
@@ -62,6 +62,9 @@ export default {
     methods: {
         toggleMenu () {
             this.$emit('toggleMenu')
+        },
+        onMenuChange () {
+            this.$emit('onMenuChange', '/home')
         }
     }
 }

@@ -4,7 +4,7 @@
             <div class="input-text">标题：</div>
             <input class="input-value" name="title" type="text" placeholder="请输入标题" v-model="title">
             <div class="input-text">内容：</div>
-            <mavon-editor class="input-content" name="content" v-model="content"/>
+            <mavon-editor ref="md" class="input-content" name="content" v-model="content"></mavon-editor>
             <div class="input-text">关键词：</div>
             <input type="text" class="input-value" name="keyword" placeholder="请输入关键词" v-model="keyword">
             <mu-button class="commit-btn" color="success" @click="onCommit">commit</mu-button>
@@ -15,7 +15,11 @@
 <script>
 import Validator from '../utils/validator'
 import api from '../api'
+import { mavonEditor } from 'mavon-editor'
 export default {
+    components: {
+        mavonEditor
+    },
     data () {
         return {
             title: '', // 标题
@@ -27,6 +31,9 @@ export default {
             },
             showAlert: false // 是否显示alert框
         }
+    },
+    mounted () {
+        console.log(mavonEditor.getMarkdownIt())
     },
     methods: {
         // 验证条件
@@ -51,8 +58,8 @@ export default {
                     keyword: this.keyword
                 })
                 if (res.code === 0) {
-                    this.$router.push('/')
-                    this.$emit('onMenuChange', '/')
+                    this.$router.push('/home')
+                    this.$emit('onMenuChange', '/home')
                 }
             } catch (err) {
                 console.log(err)
