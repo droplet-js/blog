@@ -1,10 +1,6 @@
 <template>
     <div>
         <mu-appbar class="wj-home-appbar" :color="colors.bgcolor">
-            <!-- <div class="wj-search">
-                <i class="material-icons">search</i>
-                <input type="text" class="search-text">
-            </div> -->
             <mu-button icon slot="right" :href="githubUrl">
                 <mu-icon size="18" value=":fa fa-github"></mu-icon>
             </mu-button>
@@ -50,20 +46,6 @@ export default {
     height: auto;
     margin-top: 64px;
     margin-left: 256px;
-}
-
-.wj-search {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    // margin: 20px 0;
-    background: rgba(255, 255, 255, .15);
-    .search-text {
-        outline: none;
-        border: none;
-        background: none;
-    }
 }
 
 .footer {

@@ -26,6 +26,10 @@ var strategies = {
     }
 }
 
+/**
+ * @description 表单验证器
+ * @author halapro.liu
+ */
 var Validator = function () {
     this.cache = []
 }

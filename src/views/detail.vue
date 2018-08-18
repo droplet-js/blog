@@ -9,6 +9,8 @@
 import api from '../api'
 import Container from '../components/container'
 import marked from 'marked'
+import commonUtil from '../utils/common'
+import WebWorker from '../utils/web-worker'
 export default {
     components: {
         Container
@@ -45,10 +47,42 @@ export default {
                 })
                 if (res.code === 0) {
                     this.detail = res.data
-                    this.content = this.marked(this.detail.content)
+                    this.getContent(this.detail.content)
                 }
             } catch (err) {
                 console.log(err)
+            }
+        },
+        getContent (content) {
+            let webWorker
+            if (commonUtil.isSupportWebWorker) {
+                if (typeof webWorker === 'undefined') {
+                    webWorker = new WebWorker(() => {
+                        onmessage = e => {
+                            // webworker内部只能用importScripts加载js
+                            // self是webworker的自己的全局对象
+                            // 加载marked和hightlight.js
+                            self.importScripts(
+                                'https://cdnjs.cloudflare.com/ajax/libs/marked/0.5.0/marked.min.js',
+                                'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js'
+                            )
+                            self.marked.setOptions({
+                                renderer: new self.marked.Renderer(),
+                                highlight: function (code) {
+                                    return self.hljs.highlightAuto(code).value
+                                },
+                                gfm: true
+                            })
+                            let result = self.marked(e.data)
+                            postMessage(result)
+                        }
+                    })
+                    webWorker.dispatch(content).then(res => {
+                        this.content = res
+                    })
+                }
+            } else {
+                this.content = this.marked(content)
             }
         }
     }
