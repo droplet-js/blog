@@ -29,13 +29,20 @@ db.getCollection('menus').insertMany([{
 }])
 ```
 
+## Introduce
+本系统使用Vue.js配合[muse-ui](https://muse-ui.org/#/zh-CN/)进行开发完成，后端使用的koa框架，数据库使用的是mongodb，整体功能较为简单。
+
 ## fontawesome
 
 **Main Page**: [fontawesome](http://fontawesome.dashgame.com/)
 
 ## Material Icons
 
-**Main Page** [Material Icons](http://google.github.io/material-design-icons/#getting-icons)
+**Main Page**: [Material Icons](http://google.github.io/material-design-icons/#getting-icons)
+
+## mavon-editor
+
+使用[mavon-editor](https://github.com/hinesboy/mavonEditor#readme)这个第三方markdown编辑器，并通过[marked](https://github.com/markedjs/marked)模块转换markdown为html代码进行展示，配合[hightlight.js](https://github.com/highlightjs/highlight.js)进行代码语法高亮。
 
 ## Build Setup
 
