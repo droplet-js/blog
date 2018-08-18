@@ -47,7 +47,8 @@ export default {
                 })
                 if (res.code === 0) {
                     this.detail = res.data
-                    this.getContent(this.detail.content)
+                    this.content = this.marked(this.detail.content)
+                    // this.getContent(this.detail.content)
                 }
             } catch (err) {
                 console.log(err)
@@ -79,6 +80,7 @@ export default {
                     })
                     webWorker.dispatch(content).then(res => {
                         this.content = res
+                        self.close()
                     })
                 }
             } else {

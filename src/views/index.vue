@@ -65,7 +65,7 @@ export default {
             this.$emit('toggleMenu')
         },
         onMenuChange () {
-            this.$emit('onMenuChange', '/home')
+            this.$emit('onMenuChange', '/page')
         }
     }
 }

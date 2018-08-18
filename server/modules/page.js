@@ -1,4 +1,5 @@
 const Page = require('../models/page')
+const Keyword = require('../modules/keyword')
 const UUID = require('./uuid')
 // const { JsonError } = require('../utils/error')
 
@@ -7,9 +8,15 @@ module.exports = {
     async savePage (ctx, next) {
         let { title, content, keyword } = ctx.request.body
         try {
-            let uuid = await UUID.getUUID('page')
-            let data = await Page.create({id: uuid, title, content, keyword})
-            ctx.body = {code: 0, data: data}
+            let keyData = Keyword.saveKeyword(keyword)
+            if (keyData) {
+                // 获取uuid
+                let uuid = await UUID.getUUID('page')
+                let data = await Page.create({id: uuid, title, content, keyword})
+                ctx.body = {code: 0, data: data}
+            } else {
+                ctx.body = {code: -1, data: keyData}
+            }
         } catch (err) {
             ctx.body = {code: -1, data: err}
         }

@@ -14,7 +14,7 @@
                 <p class="item-paper-sub-title">
                     {{page.title}}
                 </p>
-                <p class="item-paper-content" v-html="wordFilter(marked(page.content), 150)"></p>
+                <p class="item-paper-content" v-html="wordFilter(marked(page.content), 200)"></p>
             </mu-paper>
 
             <mu-flex class="item-pagination" justify-content="center">

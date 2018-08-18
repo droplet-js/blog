@@ -11,6 +11,8 @@ const errorHandler = require('./middlewares/errorhandler')
 const log = require('./utils/log')
 const app = new Koa()
 
+require('events').EventEmitter.defaultMaxListeners = 15
+
 const mongoose = require('mongoose')
 mongoose.connect(config.db.url)
 
