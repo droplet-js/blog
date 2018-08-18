@@ -52,8 +52,8 @@ export default {
                     keyword: this.keyword
                 })
                 if (res.code === 0) {
-                    this.$router.push('/home')
-                    this.$emit('onMenuChange', '/home')
+                    this.$router.push('/page')
+                    this.$emit('onMenuChange', '/page')
                 }
             } catch (err) {
                 console.log(err)
@@ -67,10 +67,6 @@ export default {
 <style lang="scss" scoped>
 $input-border: rgba(0, 0, 0, .2);
 $input-shadow: rgba(0, 0, 0, .2);
-
-.editor {
-
-}
 
 #editor-area {
     margin: 20px 20px 0 280px;

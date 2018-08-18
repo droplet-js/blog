@@ -7,8 +7,9 @@ import Routers from './router'
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import mavonEditor from 'mavon-editor'
-import Toast from 'muse-ui-toast'
 import 'mavon-editor/dist/css/index.css'
+import Toast from 'muse-ui-toast'
+import 'highlight.js/styles/arta.css'
 
 Vue.config.productionTip = false
 

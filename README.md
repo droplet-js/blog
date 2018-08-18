@@ -1,6 +1,6 @@
 # blog
 
-> A Vue.js project
+> A Vue.js Blog
 
 ## Init Database
 ```js
@@ -16,7 +16,7 @@ db.getCollection('menus').insertMany([{
     id: '2',
     name: 'All Posts',
     icon: ':fa fa-list-ul',
-    url: '/home',
+    url: '/page',
     createAt: Date(),
     updateAt: Date()
 },{

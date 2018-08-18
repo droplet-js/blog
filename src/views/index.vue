@@ -14,20 +14,20 @@
                 <h1>halapro.liu Blog</h1>
                 <h2>A simple Blog used by halapro.liu</h2>
             </div>
-            <mu-button @click="onMenuChange" to="/home" class="post-btn" size="15" color="#fff" textColor="#00bcd4">Go for Posts</mu-button>
+            <mu-button @click="onMenuChange" to="/page" class="post-btn" size="15" color="#fff" textColor="#00bcd4">Go for Posts</mu-button>
         </div>
 
         <div class="content">
             <div class="mu-flex">
                 <div class="module">
                     <h3>About</h3>
-                    <router-link to="">
+                    <router-link to="/">
                         <img src="../assets/img/get-started.svg" alt="">
                     </router-link>
                 </div>
                 <div class="module">
                     <h3>Posts</h3>
-                    <router-link to="/home">
+                    <router-link to="/page">
                         <img src="../assets/img/css-framework.svg" alt="">
                     </router-link>
                 </div>
@@ -50,13 +50,14 @@
 </template>
 
 <script>
+import { userData } from '../constant'
 export default {
     data () {
         return {
             bgColor: '#00bed4',
-            githubUrl: 'https://github.com/halaproliu',
-            museuiUrl: 'https://muse-ui.org/#/zh-CN',
-            vueUrl: 'https://vuejs.org'
+            githubUrl: userData.githubUrl,
+            museuiUrl: userData.museuiUrl,
+            vueUrl: userData.vueUrl
         }
     },
     methods: {

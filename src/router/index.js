@@ -1,5 +1,5 @@
 import index from '@/views/index'
-import home from '@/views/home'
+import page from '@/views/page'
 import editor from '@/views/editor'
 import detail from '@/views/detail'
 
@@ -10,9 +10,9 @@ const routes = [
         component: index
     },
     {
-        path: '/home',
-        name: 'home',
-        component: home
+        path: '/page',
+        name: 'page',
+        component: page
     },
     {
         path: '/editor',
