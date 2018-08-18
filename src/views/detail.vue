@@ -1,6 +1,9 @@
 <template>
-    <Container>
-        <h1 class="title">{{detail.title}}</h1>
+    <Container :open="loading">
+        <div class="header">
+            <h1 class="title">{{detail.title}}</h1>
+            <mu-button @click="editPage" :color="colors.bgcolor">编辑</mu-button>
+        </div>
         <div class="content" v-html="content"></div>
     </Container>
 </template>
@@ -11,19 +14,24 @@ import Container from '../components/container'
 import marked from 'marked'
 import commonUtil from '../utils/common'
 import WebWorker from '../utils/web-worker'
+import { colors } from '../constant'
 export default {
     components: {
         Container
     },
     data () {
         return {
+            colors: colors,
             detail: {},
             marked: marked,
-            content: ''
+            content: '',
+            loading: false
         }
     },
-    created () {
-        this.init()
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            vm.init()
+        })
     },
     methods: {
         init () {
@@ -40,17 +48,19 @@ export default {
             })
         },
         async getDetailPage () {
+            this.loading = true
             let id = this.$route.params.id
             try {
                 let res = await api.get('/getDetailPage', {
                     params: { id }
                 })
                 if (res.code === 0) {
+                    this.loading = false
                     this.detail = res.data
-                    this.content = this.marked(this.detail.content)
-                    // this.getContent(this.detail.content)
+                    this.getContent(this.detail.content)
                 }
             } catch (err) {
+                this.loading = false
                 console.log(err)
             }
         },
@@ -80,22 +90,33 @@ export default {
                     })
                     webWorker.dispatch(content).then(res => {
                         this.content = res
-                        self.close()
+                        webWorker.stopWorker()
                     })
                 }
             } else {
                 this.content = this.marked(content)
             }
+        },
+        editPage () {
+            let id = this.$route.params.id
+            this.$router.push(`/editor/${id}`)
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    margin-left: 40px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
 .title {
     text-align: left;
-    margin-left: 40px;
-    border-bottom: 1px solid #eee;
 }
 
 .content {

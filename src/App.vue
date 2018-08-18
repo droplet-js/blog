@@ -24,16 +24,10 @@ export default {
     },
     methods: {
         initMenu () {
-            switch (this.$route.name) {
-            case 'index':
+            if (this.$route.name === 'index') {
                 this.open = false
                 this.docked = false
-                break
-            case 'home':
-                this.open = true
-                this.docked = true
-                break
-            default:
+            } else {
                 this.open = true
                 this.docked = true
             }

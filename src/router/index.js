@@ -1,7 +1,7 @@
-import index from '@/views/index'
-import page from '@/views/page'
-import editor from '@/views/editor'
-import detail from '@/views/detail'
+const index = () => import('@/views/index')
+const page = () => import('@/views/page')
+const editor = () => import('@/views/editor')
+const detail = () => import('@/views/detail')
 
 const routes = [
     {
@@ -16,6 +16,11 @@ const routes = [
     },
     {
         path: '/editor',
+        name: 'newEditor',
+        component: editor
+    },
+    {
+        path: '/editor/:id',
         name: 'editor',
         component: editor
     },

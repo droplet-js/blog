@@ -21,12 +21,20 @@ export default {
             title: '', // 标题
             content: '', // 内容
             keyword: '', // 关键词
+            detail: {},
             alertObj: { // alert类型和信息
                 type: 'error',
                 msg: ''
             },
             showAlert: false // 是否显示alert框
         }
+    },
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            if (to.params && to.params.id) {
+                vm.getDetailPage()
+            }
+        })
     },
     methods: {
         // 验证条件
@@ -58,6 +66,35 @@ export default {
             } catch (err) {
                 console.log(err)
                 this.$toast.error('创建文章失败！')
+            }
+        },
+        async getDetailPage () {
+            let id = this.$route.params.id
+            try {
+                let res = await api.get('/getDetailPage', {
+                    params: { id }
+                })
+                if (res.code === 0) {
+                    this.detail = res.data
+                    this.title = this.detail.title
+                    this.content = this.detail.content
+                    this.keyword = this.detail.keyword
+                }
+            } catch (err) {
+                this.$toast.error('获取文章详情失败！')
+                console.log(err)
+            }
+        },
+        clear () {
+            this.title = ''
+            this.content = ''
+            this.keyword = ''
+        }
+    },
+    watch: {
+        '$route' (to, from) {
+            if (!to.params.id) {
+                this.clear()
             }
         }
     }

@@ -77,6 +77,9 @@ export default {
     watch: {
         selected (val) {
             this.selectedMenu = val
+        },
+        '$route' (to, from) {
+            this.selectedMenu = to.path
         }
     }
 }

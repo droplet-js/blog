@@ -1,5 +1,5 @@
 <template>
-    <Container>
+    <Container :open="loading">
         <mu-container>
             <mu-paper class="item-paper" :z-depth="1" v-for="(page, index) in pages" :key="index">
                 <mu-flex class="item-paper-title" justify-content="between" align-items="center">
@@ -46,14 +46,18 @@ export default {
                 current: 1,
                 pageSize: 5,
                 total: 0
-            }
+            },
+            loading: false
         }
     },
-    created () {
-        this.getPaperList()
+    beforeRouteEnter (to, from, next) {
+        next(vm => {
+            vm.getPaperList()
+        })
     },
     methods: {
         async getPaperList () {
+            this.loading = true
             try {
                 let { current, pageSize } = this.pagination
                 let res = await api.get('/getPage', {
@@ -65,8 +69,10 @@ export default {
                 if (res.code === 0 && res.data) {
                     this.pagination.total = res.data.page.total
                     this.pages = res.data.result
+                    this.loading = false
                 }
             } catch (err) {
+                this.loading = false
                 console.log(err)
                 this.$toast.error('获取文章失败！')
             }

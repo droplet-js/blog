@@ -9,7 +9,8 @@ import 'muse-ui/dist/muse-ui.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import Toast from 'muse-ui-toast'
-import 'highlight.js/styles/arta.css'
+// import 'highlight.js/styles/arta.css'
+import 'highlight.js/styles/github.css'
 
 Vue.config.productionTip = false
 
