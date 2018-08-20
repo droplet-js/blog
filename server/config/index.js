@@ -4,7 +4,8 @@ const config = {
     db: {
         url: 'mongodb://localhost:27017/blog'
     },
-    publicPath: '../static'
+    publicPath: '../static',
+    secretKey: 'halapro'
 }
 
 module.exports = config

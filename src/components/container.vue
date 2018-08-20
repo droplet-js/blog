@@ -1,6 +1,14 @@
 <template>
     <div>
         <mu-appbar class="wj-home-appbar" :color="colors.bgcolor">
+            <!-- <mu-button round slot="right" color="deepOrange600" @click="login">注册</mu-button>
+            <mu-button round slot="right" color="blueGrey800" @click="login">登录</mu-button> -->
+            <mu-button icon slot="right" @click="openRegisterDialog">
+                <mu-icon size="18" value=":fa fa-user"></mu-icon>
+            </mu-button>
+            <mu-button icon slot="right" @click="openLoginDialog">
+                <mu-icon size="18" value=":fa fa-sign-in"></mu-icon>
+            </mu-button>
             <mu-button icon slot="right" :href="githubUrl">
                 <mu-icon size="18" value=":fa fa-github"></mu-icon>
             </mu-button>
@@ -14,15 +22,17 @@
             </div>
         </div>
 
-        <mu-dialog class="loading-dialog" width="780" :open.sync="open">
-            <div class="loading-text">Loading Data...</div>
-            <mu-circular-progress class="loading-circular-progress" :color="colors.bgcolor" :stroke-width="7" :size="200"></mu-circular-progress>
-        </mu-dialog>
+        <loading :open="open"></loading>
+        <Register :open="openRegister" @onClose="closeRegisterDialog"></Register>
+        <login :open="openLogin" @onClose="closeLoginDialog"></login>
     </div>
 </template>
 
 <script>
 import { colors, userData } from '../constant'
+import Loading from './loading'
+import Login from './login'
+import Register from './register'
 export default {
     props: {
         open: {
@@ -30,18 +40,34 @@ export default {
             default: false
         }
     },
+    components: {
+        Loading,
+        Register,
+        Login
+    },
     data () {
         return {
             githubUrl: userData.githubUrl,
             museuiUrl: userData.museuiUrl,
             vueUrl: userData.vueUrl,
             colors: colors,
-            searchText: ''
+            searchText: '',
+            openRegister: false,
+            openLogin: false
         }
     },
     methods: {
-        toggleDialog () {
-            this.open = !this.open
+        openRegisterDialog () {
+            this.openRegister = true
+        },
+        closeRegisterDialog () {
+            this.openRegister = false
+        },
+        openLoginDialog () {
+            this.openLogin = true
+        },
+        closeLoginDialog () {
+            this.openLogin = false
         }
     }
 }
@@ -83,23 +109,6 @@ export default {
     i {
         color:  #fff;
     }
-}
-
-.loading-dialog {
-    text-align: center;
-    margin-left: 246px;
-    box-shadow: 0 0 10px 
-}
-
-.loading-text {
-    margin-top: 20px;
-    margin-bottom: 40px;
-    font-size: 30px;
-}
-
-.loading-circular-progress {
-    margin-top: 40px;
-    margin-bottom: 40px;
 }
 
 </style>

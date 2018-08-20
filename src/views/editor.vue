@@ -14,7 +14,7 @@
 
 <script>
 import Validator from '../utils/validator'
-import api from '../api'
+import Page from '../api/page'
 export default {
     data () {
         return {
@@ -54,7 +54,7 @@ export default {
                     this.$toast.error(errorMsg)
                     return
                 }
-                let res = await api.post('/savePage', {
+                let res = await Page.savePage({
                     title: this.title,
                     content: this.content,
                     keyword: this.keyword
@@ -71,9 +71,7 @@ export default {
         async getDetailPage () {
             let id = this.$route.params.id
             try {
-                let res = await api.get('/getDetailPage', {
-                    params: { id }
-                })
+                let res = await Page.getDetailPage({id})
                 if (res.code === 0) {
                     this.detail = res.data
                     this.title = this.detail.title

@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import api from '../api'
+import Page from '../api/page'
 import Container from '../components/container'
 import { colors, userData } from '../constant'
 import marked from 'marked'
@@ -60,12 +60,7 @@ export default {
             this.loading = true
             try {
                 let { current, pageSize } = this.pagination
-                let res = await api.get('/getPage', {
-                    params: {
-                        current,
-                        pageSize
-                    }
-                })
+                let res = await Page.getPage({ current, pageSize })
                 if (res.code === 0 && res.data) {
                     this.pagination.total = res.data.page.total
                     this.pages = res.data.result

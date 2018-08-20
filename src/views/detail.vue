@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import api from '../api'
+import Page from '../api/page'
 import Container from '../components/container'
 import marked from 'marked'
 import commonUtil from '../utils/common'
@@ -51,9 +51,7 @@ export default {
             this.loading = true
             let id = this.$route.params.id
             try {
-                let res = await api.get('/getDetailPage', {
-                    params: { id }
-                })
+                let res = await Page.getDetailPage({id})
                 if (res.code === 0) {
                     this.loading = false
                     this.detail = res.data

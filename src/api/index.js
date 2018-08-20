@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../config'
+import commonUtil from '../utils/common'
 // import { resolve } from 'path';
 // import {
 //     REQUEST_SUCCESS,
@@ -16,7 +17,7 @@ const api = axios.create({
     baseURL: config.baseURL
 })
 
-// api.defaults.headers.common['Authorization'] = ''
+api.defaults.headers.common['Authorization'] = commonUtil.getCookie('token')
 api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // request interceptor

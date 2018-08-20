@@ -17,6 +17,11 @@ var strategies = {
             return errorMsg
         }
     },
+    isEmail: function (value, errorMsg) {
+        if (!/^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/.test(value)) {
+            return errorMsg
+        }
+    },
     isImage: function (type, errorMsg) {
         type = type.toLowerCase().replace(/jpg/i, 'jpeg')
         var r = type.match(/png|jpeg|bmp|gif/)

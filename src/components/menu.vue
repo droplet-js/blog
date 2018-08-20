@@ -16,7 +16,7 @@
 
 <script>
 import { colors } from '../constant'
-import api from '../api'
+import Menu from '../api/menu'
 export default {
     props: {
         open: {
@@ -59,7 +59,7 @@ export default {
         // 获取菜单列表
         async getMenuList () {
             try {
-                let res = await api.get('/getMenuList')
+                let res = await Menu.getMenuList()
                 res.code === 0 && (this.menuList = res.data)
             } catch (err) {
                 console.log(err)

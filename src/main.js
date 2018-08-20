@@ -11,6 +11,8 @@ import 'mavon-editor/dist/css/index.css'
 import Toast from 'muse-ui-toast'
 // import 'highlight.js/styles/arta.css'
 import 'highlight.js/styles/github.css'
+import commonUtil from './utils/common'
+import api from './api'
 
 Vue.config.productionTip = false
 
@@ -27,6 +29,22 @@ const RouterConfig = {
 }
 
 const router = new VueRouter(RouterConfig)
+
+router.beforeEach((to, from, next) => {
+    if (commonUtil.getCookie('token')) {
+        api.get('/getUserInfo').then(res => {
+            console.log(res)
+            if (res.code === 0) {
+                commonUtil.setCookie('userInfo', res.data, 3600 * 24)
+            }
+        })
+            .catch(err => {
+                Toast.error('获取个人信息失败')
+                console.log(err)
+            })
+        next()
+    }
+})
 
 /* eslint-disable no-new */
 new Vue({
