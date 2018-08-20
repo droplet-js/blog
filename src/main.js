@@ -32,16 +32,27 @@ const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
     if (commonUtil.getCookie('token')) {
-        api.get('/getUserInfo').then(res => {
-            console.log(res)
-            if (res.code === 0) {
-                commonUtil.setCookie('userInfo', res.data, 3600 * 24)
-            }
-        })
-            .catch(err => {
+        let userInfo = commonUtil.getCookie('userInfo')
+        if (userInfo) {
+            next(vm => {
+                vm.userInfo = JSON.parse(userInfo)
+            })
+        } else {
+            api.get('/getUserInfo').then(res => {
+                console.log(res)
+                if (res.code === 0) {
+                    commonUtil.setCookie('userInfo', JSON.stringify(res.data), 3600 * 24)
+                    next(vm => {
+                        vm.userInfo = res.data
+                    })
+                }
+            }).catch(err => {
                 Toast.error('获取个人信息失败')
                 console.log(err)
+                next()
             })
+        }
+    } else {
         next()
     }
 })

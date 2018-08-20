@@ -8,7 +8,7 @@ module.exports = {
         // 过期时间
         let date = Math.floor(Date.now() / 1000)
         let cert = fs.readFileSync(path.join(__dirname, '../config/private.pem'))
-        const token = jwt.sign({data, exp: date}, cert, { algorithm: 'RS256' })
+        const token = jwt.sign({data, exp: date + 3600 * 24}, cert, { algorithm: 'RS256' })
         return token
     },
     verifyToken (token) {

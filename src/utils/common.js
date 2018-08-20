@@ -27,5 +27,20 @@ export default {
         }
 
         return ''
+    },
+    cookie (name, value, expireseconds) {
+        if (value) {
+            this.setCookie(name, value, expireseconds)
+        } else {
+            return this.getCookie(name)
+        }
+    },
+    delCookie (name) {
+        var exp = new Date()
+        exp.setTime(exp.getTime() - 1)
+        var cval = this.getCookie(name)
+        if (cval != null) {
+            document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString()
+        }
     }
 }

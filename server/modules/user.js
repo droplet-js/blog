@@ -63,6 +63,7 @@ module.exports = {
         try {
             let res = Token.verifyToken(token)
             if (res && res.username) {
+                let username = res.username
                 let data = await User.findOne({ username }, { username: 1, avatar: 1, phone: 1, email: 1, createAt: 1, updateAt: 1 })
                 if (data) {
                     ctx.body = { code: 0, data: data}

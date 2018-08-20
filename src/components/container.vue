@@ -3,12 +3,27 @@
         <mu-appbar class="wj-home-appbar" :color="colors.bgcolor">
             <!-- <mu-button round slot="right" color="deepOrange600" @click="login">注册</mu-button>
             <mu-button round slot="right" color="blueGrey800" @click="login">登录</mu-button> -->
-            <mu-button icon slot="right" @click="openRegisterDialog">
+            <mu-button icon slot="right" @click="openRegisterDialog" v-if="!isLogin">
                 <mu-icon size="18" value=":fa fa-user"></mu-icon>
             </mu-button>
-            <mu-button icon slot="right" @click="openLoginDialog">
+            <mu-button icon slot="right" @click="openLoginDialog" v-if="!isLogin">
                 <mu-icon size="18" value=":fa fa-sign-in"></mu-icon>
             </mu-button>
+            <mu-flex slot="right" v-if="isLogin">
+                <mu-menu placement="bottom-start" open-on-hover>
+                    <mu-avatar>
+                        <img src="../assets/img/timg.jpg" alt="">
+                    </mu-avatar>
+                    <mu-list slot="content">
+                        <mu-list-item button>
+                            <mu-list-item-title>个人信息</mu-list-item-title>
+                        </mu-list-item>
+                        <mu-list-item button @click="logout">
+                            <mu-list-item-title>退出登录</mu-list-item-title>
+                        </mu-list-item>
+                    </mu-list>
+                </mu-menu>
+            </mu-flex>
             <mu-button icon slot="right" :href="githubUrl">
                 <mu-icon size="18" value=":fa fa-github"></mu-icon>
             </mu-button>
@@ -33,6 +48,7 @@ import { colors, userData } from '../constant'
 import Loading from './loading'
 import Login from './login'
 import Register from './register'
+import commonUtil from '../utils/common'
 export default {
     props: {
         open: {
@@ -53,7 +69,22 @@ export default {
             colors: colors,
             searchText: '',
             openRegister: false,
-            openLogin: false
+            openLogin: false,
+            userInfo: {}
+        }
+    },
+    created () {
+        console.log(this.userInfo)
+        if (commonUtil.getCookie('userInfo')) {
+            this.userInfo = JSON.parse(commonUtil.getCookie('userInfo'))
+        }
+    },
+    computed: {
+        isLogin () {
+            if (commonUtil.getCookie('userInfo')) {
+                this.userInfo = JSON.parse(commonUtil.getCookie('userInfo'))
+            }
+            return this.userInfo.hasOwnProperty('username')
         }
     },
     methods: {
@@ -68,6 +99,11 @@ export default {
         },
         closeLoginDialog () {
             this.openLogin = false
+        },
+        logout () {
+            commonUtil.delCookie('token')
+            commonUtil.delCookie('userInfo')
+            this.$router.go(0)
         }
     }
 }
@@ -81,6 +117,10 @@ export default {
         width: 100%;
         margin-left: 0;
     }
+}
+
+.avatar {
+    width: 20px;
 }
 
 .wj-container {

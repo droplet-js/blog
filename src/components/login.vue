@@ -67,6 +67,7 @@ export default {
                 if (res.code === 0) {
                     commonUtil.setCookie('token', res.data, 3600 * 2)
                     this.$emit('onClose')
+                    this.$router.push('/page')
                 }
             } catch (err) {
                 console.log(err)
