@@ -24,6 +24,7 @@ db.getCollection('menus').insertMany([{
     name: 'New Post',
     icon: ':fa fa-pencil',
     url: '/editor',
+    isAdmin: '1',
     createAt: Date(),
     updateAt: Date()
 }])

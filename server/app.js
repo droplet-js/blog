@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 const config = require('./config')
 const router = require('./router')
@@ -10,6 +11,7 @@ const convert = require('koa-convert')
 const jwt = require('koa-jwt')
 const errorHandler = require('./middlewares/errorhandler')
 const log = require('./utils/log')
+const Token = require('./utils/token')
 const app = new Koa()
 
 require('events').EventEmitter.defaultMaxListeners = 15
@@ -19,7 +21,12 @@ mongoose.connect(config.db.url)
 
 const port = config.port || '8080'
 
-const secret = 'jwt_secret'
+const secret = Token.getSecret('public.pem')
+const jwtOpts = {
+    secret,
+    isRevoked: Token.isRevoked, // 判断token是否过期
+    tokenKey: 'token' // 设置ctx.state.token
+}
 
 // middlewares
 const middlewares = [
@@ -27,9 +34,16 @@ const middlewares = [
     logger(),
     bodyParser(),
     serve(path.join(__dirname, config.publicPath)),
-    // jwt({secret}).unless({
-    //     path: ['/\/api\/register/', '/\/api\/login/']
-    // }),
+    // 验证是否需要token请求，unless是例外，不需要token就可以请求
+    jwt(jwtOpts).unless({
+        path: [
+            /^\/api\/register/,
+            /^\/api\/login/,
+            /^\/api\/getMenuList/,
+            /^\/api\/getPage/,
+            /^\/api\/getDetailPage/
+        ]
+    }),
     errorHandler,
     router.routes(),
     router.allowedMethods()

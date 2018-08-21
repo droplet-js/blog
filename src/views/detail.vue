@@ -2,7 +2,7 @@
     <Container :open="loading">
         <div class="header">
             <h1 class="title">{{detail.title}}</h1>
-            <mu-button @click="editPage" :color="colors.bgcolor">编辑</mu-button>
+            <mu-button @click="editPage" :color="colors.bgcolor" v-show="isLogin">编辑</mu-button>
         </div>
         <div class="content" v-html="content"></div>
     </Container>
@@ -25,7 +25,9 @@ export default {
             detail: {},
             marked: marked,
             content: '',
-            loading: false
+            loading: false,
+            userInfo: {},
+            isLogin: false
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -33,10 +35,20 @@ export default {
             vm.init()
         })
     },
+    created () {
+
+    },
     methods: {
         init () {
             this.getDetailPage()
             this.initMarked()
+            this.getUserInfo()
+        },
+        getUserInfo () {
+            if (commonUtil.cookies('userInfo')) {
+                this.userInfo = JSON.parse(commonUtil.cookies('userInfo'))
+                this.isLogin = true
+            }
         },
         initMarked () {
             this.marked.setOptions({

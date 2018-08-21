@@ -28,7 +28,7 @@ export default {
 
         return ''
     },
-    cookie (name, value, expireseconds) {
+    cookies (name, value, expireseconds) {
         if (value) {
             this.setCookie(name, value, expireseconds)
         } else {

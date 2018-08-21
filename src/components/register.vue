@@ -9,13 +9,13 @@
                     <mu-text-field type="text" v-model="form.password" action-icon=":fa fa-eye"></mu-text-field>
                 </mu-form-item>
                 <mu-form-item prop="phone" label="Phone" :rules="phoneRules">
-                    <mu-text-field type="text" v-model="form.phone" action-icon=":fa fa-eye"></mu-text-field>
+                    <mu-text-field type="text" v-model="form.phone" action-icon=":fa fa-phone"></mu-text-field>
                 </mu-form-item>
                 <mu-form-item prop="email" label="Email" :rules="emailRules">
-                    <mu-text-field type="text" v-model="form.email" action-icon=":fa fa-eye"></mu-text-field>
+                    <mu-text-field type="text" v-model="form.email" action-icon=":fa fa-envelope"></mu-text-field>
                 </mu-form-item>
             </mu-form>
-            <mu-button slot="actions" flat color="primary" @click="onLogin">register</mu-button>
+            <mu-button slot="actions" flat color="primary" @click="onRegister">register</mu-button>
             <mu-button slot="actions" flat color="error" @click="closeOpenDialog">Close</mu-button>
         </mu-dialog>
     </div>
@@ -69,7 +69,7 @@ export default {
             let validateResult = await this.$refs.form.validate()
             return validateResult
         },
-        async onLogin () {
+        async onRegister () {
             try {
                 let validateResult = await this.validate()
                 if (!validateResult) {
@@ -83,9 +83,10 @@ export default {
                     email: this.form.email
                 })
                 /* eslint-enable */
-                if (res.code === 0) {
+                if (res.code === 0 && res.data) {
                     commonUtil.setCookie('token', res.data, 3600 * 2)
-                    this.$emit('onClose')
+                    this.closeOpenDialog()
+                    this.$router.go(0)
                 }
             } catch (err) {
                 console.log(err)

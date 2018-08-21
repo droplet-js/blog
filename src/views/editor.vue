@@ -100,8 +100,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$input-border: rgba(0, 0, 0, .2);
-$input-shadow: rgba(0, 0, 0, .2);
+// $input-border: rgba(0, 0, 0, .2);
+// $input-shadow: rgba(0, 0, 0, .2);
+@import '../assets/css/variable.scss';
 
 #editor-area {
     margin: 20px 20px 0 280px;

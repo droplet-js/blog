@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
             api.get('/getUserInfo').then(res => {
                 console.log(res)
                 if (res.code === 0) {
-                    commonUtil.setCookie('userInfo', JSON.stringify(res.data), 3600 * 24)
+                    commonUtil.cookies('userInfo', JSON.stringify(res.data), 3600 * 24)
                     next(vm => {
                         vm.userInfo = res.data
                     })

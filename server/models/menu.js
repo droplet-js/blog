@@ -8,6 +8,10 @@ let MenuSchema = new Schema({
     name: String, // 菜单名称
     icon: String, // 菜单图标
     url: String, // 菜单链接
+    isAdmin: {
+        type: String,
+        default: '0'
+    }, // 是否是登录用户菜单 1：是，0：否
     createAt: {
         type: Date,
         default: Date.now()

@@ -2,6 +2,7 @@ const index = () => import('@/views/index')
 const page = () => import('@/views/page')
 const editor = () => import('@/views/editor')
 const detail = () => import('@/views/detail')
+const information = () => import('@/views/information')
 
 const routes = [
     {
@@ -28,8 +29,12 @@ const routes = [
         path: '/detail/:id',
         name: 'detail',
         component: detail
+    },
+    {
+        path: '/information',
+        name: 'information',
+        component: information
     }
-
 ]
 
 export default routes

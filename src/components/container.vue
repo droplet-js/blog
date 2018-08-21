@@ -1,8 +1,6 @@
 <template>
     <div>
         <mu-appbar class="wj-home-appbar" :color="colors.bgcolor">
-            <!-- <mu-button round slot="right" color="deepOrange600" @click="login">注册</mu-button>
-            <mu-button round slot="right" color="blueGrey800" @click="login">登录</mu-button> -->
             <mu-button icon slot="right" @click="openRegisterDialog" v-if="!isLogin">
                 <mu-icon size="18" value=":fa fa-user"></mu-icon>
             </mu-button>
@@ -15,7 +13,7 @@
                         <img src="../assets/img/timg.jpg" alt="">
                     </mu-avatar>
                     <mu-list slot="content">
-                        <mu-list-item button>
+                        <mu-list-item button @click="information">
                             <mu-list-item-title>个人信息</mu-list-item-title>
                         </mu-list-item>
                         <mu-list-item button @click="logout">
@@ -70,24 +68,23 @@ export default {
             searchText: '',
             openRegister: false,
             openLogin: false,
-            userInfo: {}
+            userInfo: {},
+            isLogin: false
         }
     },
     created () {
-        console.log(this.userInfo)
-        if (commonUtil.getCookie('userInfo')) {
-            this.userInfo = JSON.parse(commonUtil.getCookie('userInfo'))
-        }
-    },
-    computed: {
-        isLogin () {
-            if (commonUtil.getCookie('userInfo')) {
-                this.userInfo = JSON.parse(commonUtil.getCookie('userInfo'))
-            }
-            return this.userInfo.hasOwnProperty('username')
-        }
+        this.init()
     },
     methods: {
+        init () {
+            this.getUserInfo()
+        },
+        getUserInfo () {
+            if (commonUtil.getCookie('userInfo')) {
+                this.userInfo = JSON.parse(commonUtil.getCookie('userInfo'))
+                this.isLogin = true
+            }
+        },
         openRegisterDialog () {
             this.openRegister = true
         },
@@ -99,6 +96,9 @@ export default {
         },
         closeLoginDialog () {
             this.openLogin = false
+        },
+        information () {
+            this.$router.push('/information')
         },
         logout () {
             commonUtil.delCookie('token')

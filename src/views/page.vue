@@ -37,9 +37,9 @@ export default {
     data () {
         return {
             colors: colors,
-            githubUrl: userData.githubUrl,
-            pages: [],
-            marked: marked,
+            githubUrl: userData.githubUrl, // 个人github链接
+            pages: [], // 文章列表
+            marked: marked, // 解析markdown文本为html
             wordFilter: wordFilter,
             pageCount: 7,
             pagination: {
@@ -47,7 +47,7 @@ export default {
                 pageSize: 5,
                 total: 0
             },
-            loading: false
+            loading: false // 是否显示loading
         }
     },
     beforeRouteEnter (to, from, next) {

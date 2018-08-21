@@ -17,7 +17,8 @@ const api = axios.create({
     baseURL: config.baseURL
 })
 
-api.defaults.headers.common['Authorization'] = commonUtil.getCookie('token')
+const token = commonUtil.getCookie('token')
+api.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : ''
 api.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 // request interceptor

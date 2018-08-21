@@ -2,6 +2,8 @@
     <div>
         <mu-dialog class="login-dialog" title="Login" width="400" :open.sync="open" @close="closeOpenDialog" :overlay-close="false" :esc-press-close="false">
             <mu-form ref="form" :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
+                <input type="text" style="display:none;">
+                <input type="password" style="display:none;">
                 <mu-form-item prop="username" label="Username" :rules="usernameRules">
                     <mu-text-field v-model="form.username" action-icon=":fa fa-user-o"></mu-text-field>
                 </mu-form-item>
@@ -64,10 +66,10 @@ export default {
                     password: hex_hmac_md5(config.secretKey, this.form.password)
                 })
                 /* eslint-enable */
-                if (res.code === 0) {
+                if (res.code === 0 && res.data) {
                     commonUtil.setCookie('token', res.data, 3600 * 2)
-                    this.$emit('onClose')
-                    this.$router.push('/page')
+                    this.closeOpenDialog()
+                    this.$router.go(0)
                 }
             } catch (err) {
                 console.log(err)

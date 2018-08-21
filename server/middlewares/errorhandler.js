@@ -6,15 +6,26 @@ const { JsonError } = require('../utils/error')
  * @param {*} next
  */
 async function errorHandler (ctx, next) {
-    try {
-        await next()
-    } catch (e) {
-        console.log('------------e:', e.name)
-        if (e instanceof JsonError) {
-            console.log(111)
+    // console.log(ctx)
+    // try {
+    //     await next()
+    // } catch (e) {
+    //     console.log('------------e:', e.name)
+    //     if (e instanceof JsonError) {
+    //         console.log(111)
+    //     }
+    //     // ctx.throw(status, message)
+    // }
+    return next().catch((err) => {
+        if (err.status === 401) {
+            ctx.status = 401
+            ctx.body = {
+                error: err.originalError ? err.originalError.message : err.message
+            }
+        } else {
+            throw err
         }
-        // ctx.throw(status, message)
-    }
+    })
 }
 
 module.exports = errorHandler

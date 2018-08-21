@@ -59,15 +59,16 @@ module.exports = {
     },
     // 获取用户信息
     async getUserInfo (ctx) {
-        let token = ctx.header.authorization || ''
         try {
-            let res = Token.verifyToken(token)
-            if (res && res.username) {
-                let username = res.username
+            let user = ctx.state.user && ctx.state.user.data
+            if (user && user.username) {
+                let username = user.username
                 let data = await User.findOne({ username }, { username: 1, avatar: 1, phone: 1, email: 1, createAt: 1, updateAt: 1 })
                 if (data) {
                     ctx.body = { code: 0, data: data}
                 }
+            } else {
+                ctx.body = { code: 401, data: '请求数据失败' }
             }
         } catch (err) {
             ctx.body = { code: -1, data: err }
