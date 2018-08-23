@@ -52,7 +52,7 @@ db.getCollection('menus').insertMany([{
 - [x] 文章列表
 - [x] 文章详情
 - [x] Markdown编辑器
-- [ ] 个人头像上传
+- [ ] 个人头像上传
 - [ ] 修改密码
 - [ ] 评论功能
 - [ ] 文章搜索
