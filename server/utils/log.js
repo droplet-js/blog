@@ -24,8 +24,14 @@ var styles = {
     'yellowBG'      : ['\x1B[43m', '\x1B[49m']
 }
 
-function log (key, str) {
-    console.log(styles[key][0] + str + styles[key][1])
+function log (key, obj) {
+    if (typeof obj === 'string') {
+        console.log(styles[key][0] + '%s' + styles[key][1], obj)
+    } else if (typeof obj === 'object') {
+        console.log(styles[key][0] + '%o' + styles[key][1], obj)
+    } else {
+        console.log(styles[key][0] + '%s' + styles[key][1], obj)
+    }
 }
 
 module.exports = log

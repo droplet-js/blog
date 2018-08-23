@@ -17,5 +17,10 @@ export default {
             params: params
         })
         return res
+    },
+    // 上传图片
+    async uploadImg (params) {
+        let res = await api.post('/upload', params)
+        return res
     }
 }

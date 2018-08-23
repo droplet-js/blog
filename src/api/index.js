@@ -1,16 +1,11 @@
 import axios from 'axios'
 import config from '../config'
 import commonUtil from '../utils/common'
-// import { resolve } from 'path';
-// import {
-//     REQUEST_SUCCESS,
-//     REQUEST_NOT_FOUND,
-//     REQUEST_INTERNAL_ERROR,
-//     REQUEST_ERROR,
-//     REQUEST_UNRECORNIZED,
-//     REQUEST_FORBIDDEN,
-//     SERVICE_CANNOT_USE
-// } from '../constant/status'
+import router from '../router'
+import {
+    REQUEST_UNRECORNIZED,
+    REQUEST_FORBIDDEN
+} from '../constant/status'
 
 // create an axios instance
 const api = axios.create({
@@ -32,7 +27,21 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(res => {
     return res.data
 }, err => {
-    return Promise.reject(err)
+    console.log(err.response)
+    if (!err.response) {
+        return Promise.reject(err)
+    }
+    switch (err.response.status) {
+    case REQUEST_UNRECORNIZED:
+        commonUtil.delCookie('token')
+        commonUtil.delCookie('userInfo')
+        router.push('/page')
+        break
+    case REQUEST_FORBIDDEN:
+        console.log('No Permission')
+        break
+    }
+    return Promise.reject(err.response)
 })
 
 export default api

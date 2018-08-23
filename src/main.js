@@ -53,6 +53,11 @@ router.beforeEach((to, from, next) => {
             })
         }
     } else {
+        if (/editor|information/.test(to.path)) {
+            next({
+                path: '/page'
+            })
+        }
         next()
     }
 })

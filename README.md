@@ -45,6 +45,18 @@ db.getCollection('menus').insertMany([{
 
 使用[mavon-editor](https://github.com/hinesboy/mavonEditor#readme)这个第三方markdown编辑器，并通过[marked](https://github.com/markedjs/marked)模块转换markdown为html代码进行展示，配合[hightlight.js](https://github.com/highlightjs/highlight.js)进行代码语法高亮。
 
+## 功能列表
+- [x] 权限控制
+- [x] 路由
+- [x] 用户信息
+- [x] 文章列表
+- [x] 文章详情
+- [x] Markdown编辑器
+- [ ] 个人头像上传
+- [ ] 修改密码
+- [ ] 评论功能
+- [ ] 文章搜索
+
 ## Build Setup
 
 ``` bash

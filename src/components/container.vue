@@ -103,7 +103,7 @@ export default {
         logout () {
             commonUtil.delCookie('token')
             commonUtil.delCookie('userInfo')
-            this.$router.go(0)
+            this.$router.go('/page')
         }
     }
 }

@@ -28,6 +28,16 @@ const jwtOpts = {
     tokenKey: 'token' // 设置ctx.state.token
 }
 
+const jwtUnlessOpts = {
+    path: [
+        /^\/api\/register/,
+        /^\/api\/login/,
+        /^\/api\/getMenuList/,
+        /^\/api\/getPage/,
+        /^\/api\/getDetailPage/,
+    ]
+}
+
 // middlewares
 const middlewares = [
     convert(cors()),
@@ -35,15 +45,7 @@ const middlewares = [
     bodyParser(),
     serve(path.join(__dirname, config.publicPath)),
     // 验证是否需要token请求，unless是例外，不需要token就可以请求
-    jwt(jwtOpts).unless({
-        path: [
-            /^\/api\/register/,
-            /^\/api\/login/,
-            /^\/api\/getMenuList/,
-            /^\/api\/getPage/,
-            /^\/api\/getDetailPage/
-        ]
-    }),
+    jwt(jwtOpts).unless(jwtUnlessOpts),
     errorHandler,
     router.routes(),
     router.allowedMethods()
@@ -57,7 +59,7 @@ middlewares.forEach(middleware => {
 })
 
 app.on('error', (err) => {
-    console.log(err)
+    log('cyan', err)
 })
 
 // koa static server
