@@ -7,24 +7,16 @@
 // 在mongodb中
 db.getCollection('menus').insertMany([{
     id: '1',
-    name: 'Go Home',
+    name: '主页',
     icon: ':fa fa-home',
     url: '/',
     createAt: Date(),
     updateAt: Date()
 },{
     id: '2',
-    name: 'All Posts',
+    name: '所有文章',
     icon: ':fa fa-list-ul',
     url: '/page',
-    createAt: Date(),
-    updateAt: Date()
-},{
-    id: '3',
-    name: 'New Post',
-    icon: ':fa fa-pencil',
-    url: '/editor',
-    isAdmin: '1',
     createAt: Date(),
     updateAt: Date()
 }])

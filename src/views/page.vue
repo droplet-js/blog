@@ -9,7 +9,7 @@
                         </mu-avatar>
                         <span class="item-paper-name">halapro.liu</span>
                     </mu-flex>
-                    <mu-button @click="gotoDetail(page)" class="item-paper-button" color="secondary" :ripple="true">Read</mu-button>
+                    <mu-button @click="gotoDetail(page)" class="item-paper-button" color="secondary" :ripple="true">阅读</mu-button>
                 </mu-flex>
                 <p class="item-paper-sub-title">
                     {{page.title}}

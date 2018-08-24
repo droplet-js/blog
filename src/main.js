@@ -9,10 +9,9 @@ import 'muse-ui/dist/muse-ui.css'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import Toast from 'muse-ui-toast'
-// import 'highlight.js/styles/arta.css'
 import 'highlight.js/styles/github.css'
 import commonUtil from './utils/common'
-import api from './api'
+import User from './api/user'
 
 Vue.config.productionTip = false
 
@@ -30,30 +29,36 @@ const RouterConfig = {
 
 const router = new VueRouter(RouterConfig)
 
+let getUserInfo = async (next) => {
+    let res = await User.getUserInfo()
+    if (res.code === 0) {
+        commonUtil.cookies('userInfo', JSON.stringify(res.data), 3600 * 24)
+        next(vm => {
+            vm.userInfo = res.data
+        })
+    }
+}
+
 router.beforeEach((to, from, next) => {
     if (commonUtil.getCookie('token')) {
-        let userInfo = commonUtil.getCookie('userInfo')
+        let userInfo = commonUtil.cookies('userInfo')
         if (userInfo) {
             next(vm => {
                 vm.userInfo = JSON.parse(userInfo)
             })
         } else {
-            api.get('/getUserInfo').then(res => {
-                console.log(res)
-                if (res.code === 0) {
-                    commonUtil.cookies('userInfo', JSON.stringify(res.data), 3600 * 24)
-                    next(vm => {
-                        vm.userInfo = res.data
-                    })
-                }
-            }).catch(err => {
+            try {
+                getUserInfo(next)
+            } catch (err) {
                 Toast.error('获取个人信息失败')
                 console.log(err)
                 next()
-            })
+            }
         }
     } else {
-        if (/editor|information/.test(to.path)) {
+        // token不存在，则删除userInfo信息
+        commonUtil.delCookie('userInfo')
+        if (to.meta.requireAuth) {
             next({
                 path: '/page'
             })

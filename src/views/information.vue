@@ -6,7 +6,7 @@
                 <div class="input-group">
                     <div class="input-text">头像：</div>
                     <!-- <img class="avatar" src="../assets/img/timg.jpg" alt="" v-show="!avatar"> -->
-                    <img class="avatar" :src="form.avatar" alt="">
+                    <img @click="selectImg" class="avatar" :src="form.avatar" alt="">
                     <mu-button @click="selectImg" class="upload-btn" small v-show="!isChangeImage">上传</mu-button>
                     <mu-button @click="onUploadConfirm" class="upload-btn" color="primary" small v-show="isChangeImage">确定</mu-button>
                     <mu-button @click="onUploadCancel" class="upload-btn" small v-show="isChangeImage">取消</mu-button>
@@ -87,25 +87,15 @@ export default {
                 this.form.username = this.userInfo.username
                 this.form.phone = this.userInfo.phone
                 this.form.email = this.userInfo.email
-                this.form.avatar = this.userInfo.avatar || defaultAvatar
+                this.form.avatar = this.userInfo.avatar ? 'http://localhost:3000/' + this.userInfo.avatar : defaultAvatar
             }
         },
         changeImage (files) {
-            console.log(files)
             if (files.length > 0) {
                 this.isChangeImage = true
                 this.file = files[0]
                 this.readFile(this.file)
             }
-        },
-        loadImg (url) {
-            var self = this
-            var img = new Image()
-            img.onload = function (e) {
-                console.log(e)
-                self.form.avatar = this.result
-            }
-            img.src = url
         },
         readFile (file) {
             var self = this
@@ -115,21 +105,47 @@ export default {
                 self.form.avatar = this.result
             }
         },
+        // 选择图片
         selectImg () {
             this.$refs.avatar.click()
         },
-        onUploadConfirm () {
+        async onUploadConfirm () {
             let formData = new FormData()
             formData.append('avatar', this.file)
             try {
-                let res = User.uploadImg(formData)
-                console.log(res)
+                let res = await User.uploadImg(formData)
+                if (res.code === 0 && res.data) {
+                    this.form.avatar = 'http://localhost:3000/' + res.data.avatar
+                    commonUtil.cookies('userInfo', JSON.stringify(res.data))
+                    this.$toast.success('上传成功!')
+                }
             } catch (err) {
                 console.log(err)
             }
         },
-        onUploadCancel () {},
-        submit () {}
+        onUploadCancel () {
+            this.isChangeImage = false
+        },
+        async submit () {
+            let opts = {
+                ...this.form
+            }
+            try {
+                let res = await User.modifyUserInfo(opts)
+                if (res.code === 0) {
+                    this.updateUserInfo(res)
+                    this.$toast.success(res.data)
+                } else {
+                    this.$toast.error('修改用户信息成功')
+                }
+            } catch (err) {
+                this.$toast.error('修改用户信息失败')
+            }
+        },
+        updateUserInfo (res) {
+            this.userInfo = res.data
+            commonUtil.cookies('userInfo', JSON.stringify(res.data))
+        }
     }
 }
 </script>

@@ -8,32 +8,50 @@ const routes = [
     {
         path: '/',
         name: 'index',
-        component: index
+        component: index,
+        meta: {
+            requireAuth: false
+        }
     },
     {
         path: '/page',
         name: 'page',
-        component: page
+        component: page,
+        meta: {
+            requireAuth: false
+        }
     },
     {
         path: '/editor',
         name: 'newEditor',
-        component: editor
+        component: editor,
+        meta: {
+            requireAuth: true
+        }
     },
     {
         path: '/editor/:id',
         name: 'editor',
-        component: editor
+        component: editor,
+        meta: {
+            requireAuth: true
+        }
     },
     {
         path: '/detail/:id',
         name: 'detail',
-        component: detail
+        component: detail,
+        meta: {
+            requireAuth: false
+        }
     },
     {
         path: '/information',
         name: 'information',
-        component: information
+        component: information,
+        meta: {
+            requireAuth: true
+        }
     }
 ]
 

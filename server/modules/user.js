@@ -63,15 +63,69 @@ module.exports = {
             let user = ctx.state.user && ctx.state.user.data
             if (user && user.username) {
                 let username = user.username
-                let data = await User.findOne({ username }, { username: 1, avatar: 1, phone: 1, email: 1, createAt: 1, updateAt: 1 })
-                if (data) {
-                    ctx.body = { code: 0, data: data}
+                let userInfo = await User.findOne({ username }, { username: 1, avatar: 1, phone: 1, email: 1, createAt: 1, updateAt: 1 })
+                if (userInfo) {
+                    ctx.body = { code: 0, data: userInfo}
                 }
             } else {
                 ctx.body = { code: 401, data: '请求数据失败' }
             }
         } catch (err) {
             ctx.body = { code: -1, data: err }
+        }
+    },
+    // 修改用户信息
+    async modifyUserInfo (ctx) {
+        try {
+            let { username: name, phone, email } = ctx.request.body
+            let user = ctx.state.user && ctx.state.user.data
+            if (user && user.username) {
+                let username = user.username
+                let userInfo = await User.findOne({ username }, { username: 1, avatar: 1, phone: 1, email: 1, createAt: 1, updateAt: 1 })
+                if (userInfo) {
+                    userInfo.username = name || userInfo.username
+                    userInfo.phone = phone || userInfo.phone
+                    userInfo.email = email || userInfo.email
+                    let data = await userInfo.save()
+                    ctx.body = { 
+                        code: 0,
+                        data: {
+                            username: data.username,
+                            avatar: data.avatar,
+                            phone: data.phone,
+                            email: data.email,
+                            createAt: data.createAt,
+                            updateAt: data.updateAt
+                        }
+                    }
+                } else {
+                    ctx.body = { code: 0, data: '用户不存在' }
+                }
+            } else {
+                ctx.body = { code: 401, data: '请求数据失败' }
+            }
+        } catch (err) {
+            ctx.body = { code: -1, data: err }
+        }
+    },
+    // 保存头像
+    async saveAvatar (ctx) {
+        try {
+            let user = ctx.state.user && ctx.state.user.data
+            if (user && user.username) {
+                let username = user.username
+                let userInfo = await User.findOne({ username }, { username: 1, avatar: 1, phone: 1, email: 1, createAt: 1, updateAt: 1 })
+                if (userInfo) {
+                    userInfo.avatar = ctx.state.avatar
+                    return await userInfo.save()
+                } else {
+                    return void 0
+                }
+            } else {
+                return void 0
+            }
+        } catch (err) {
+            return void 0
         }
     }
 }

@@ -1,7 +1,7 @@
 <template>
     <mu-drawer :open="open" :docked="docked" :right="position === 'right'" @close="closeMenu">
         <mu-appbar :color="colors.bgcolor" style="text-align: left;">
-          HL Blog
+          {{userInfo.username || 'HL' }}的博客
         </mu-appbar>
         <mu-list :value="selectedMenu" @change="onMenuChange">
             <mu-list-item :class="{'selected-item': selectedMenu === menu.url}" button :value="menu.url" :to="menu.url" v-for="menu in menuList" :key="menu.id">
@@ -17,6 +17,7 @@
 <script>
 import { colors } from '../constant'
 import Menu from '../api/menu'
+import commonUtil from '../utils/common'
 export default {
     props: {
         open: {
@@ -42,7 +43,8 @@ export default {
             iconColor: '#757575',
             colors: colors,
             menuList: [],
-            selectedMenu: '/'
+            selectedMenu: '/',
+            userInfo: {}
         }
     },
     created () {
@@ -50,8 +52,15 @@ export default {
     },
     methods: {
         init () {
+            this.getUserInfo()
             this.getMenuList()
             this.setSelectedMenu()
+        },
+        getUserInfo () {
+            let userInfo = commonUtil.cookies('userInfo')
+            if (userInfo) {
+                this.userInfo = JSON.parse(userInfo)
+            }
         },
         setSelectedMenu () {
             this.selectedMenu = this.$route.path
@@ -80,6 +89,7 @@ export default {
         },
         '$route' (to, from) {
             this.selectedMenu = to.path
+            this.getUserInfo()
         }
     }
 }

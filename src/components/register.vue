@@ -1,22 +1,22 @@
 <template>
     <div>
-        <mu-dialog class="login-dialog" title="Register" width="400" :open.sync="open" @close="closeOpenDialog" :overlay-close="false" :esc-press-close="false">
-            <mu-form ref="form" :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
-                <mu-form-item prop="username" label="Username" :rules="usernameRules">
+        <mu-dialog class="login-dialog" title="注册" width="400" :open.sync="open" @close="closeOpenDialog" :overlay-close="false" :esc-press-close="false">
+            <mu-form ref="form" :model="form" :label-position="labelPosition" label-width="100">
+                <mu-form-item prop="username" label="用户名" :rules="usernameRules">
                     <mu-text-field type="text" v-model="form.username" action-icon=":fa fa-user-o"></mu-text-field>
                 </mu-form-item>
-                <mu-form-item prop="password" label="Password" :rules="passwordRules">
+                <mu-form-item prop="password" label="密码" :rules="passwordRules">
                     <mu-text-field type="text" v-model="form.password" action-icon=":fa fa-eye"></mu-text-field>
                 </mu-form-item>
-                <mu-form-item prop="phone" label="Phone" :rules="phoneRules">
+                <mu-form-item prop="phone" label="手机号" :rules="phoneRules">
                     <mu-text-field type="text" v-model="form.phone" action-icon=":fa fa-phone"></mu-text-field>
                 </mu-form-item>
-                <mu-form-item prop="email" label="Email" :rules="emailRules">
+                <mu-form-item prop="email" label="邮箱" :rules="emailRules">
                     <mu-text-field type="text" v-model="form.email" action-icon=":fa fa-envelope"></mu-text-field>
                 </mu-form-item>
             </mu-form>
-            <mu-button slot="actions" flat color="primary" @click="onRegister">register</mu-button>
-            <mu-button slot="actions" flat color="error" @click="closeOpenDialog">Close</mu-button>
+            <mu-button slot="actions" flat color="primary" @click="onRegister">确定</mu-button>
+            <mu-button slot="actions" flat color="error" @click="closeOpenDialog">关闭</mu-button>
         </mu-dialog>
     </div>
 </template>

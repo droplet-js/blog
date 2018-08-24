@@ -7,10 +7,10 @@
             <mu-button icon slot="right" @click="openLoginDialog" v-if="!isLogin">
                 <mu-icon size="18" value=":fa fa-sign-in"></mu-icon>
             </mu-button>
-            <mu-flex slot="right" v-if="isLogin">
+            <mu-flex align-items="center" slot="right" v-if="isLogin">
                 <mu-menu placement="bottom-start" open-on-hover>
                     <mu-avatar>
-                        <img src="../assets/img/timg.jpg" alt="">
+                        <img :src="avatar" alt="">
                     </mu-avatar>
                     <mu-list slot="content">
                         <mu-list-item button @click="information">
@@ -21,10 +21,11 @@
                         </mu-list-item>
                     </mu-list>
                 </mu-menu>
+                <mu-button to="/editor" class="new-post-btn" round slot="right" color="pink400">写文章</mu-button>
             </mu-flex>
-            <mu-button icon slot="right" :href="githubUrl">
+            <!-- <mu-button icon slot="right" :href="githubUrl">
                 <mu-icon size="18" value=":fa fa-github"></mu-icon>
-            </mu-button>
+            </mu-button> -->
         </mu-appbar>
         <div class="wj-container">
             <slot></slot>
@@ -47,6 +48,7 @@ import Loading from './loading'
 import Login from './login'
 import Register from './register'
 import commonUtil from '../utils/common'
+import defaultAvatar from '../assets/img/timg.jpg'
 export default {
     props: {
         open: {
@@ -69,7 +71,8 @@ export default {
             openRegister: false,
             openLogin: false,
             userInfo: {},
-            isLogin: false
+            isLogin: false,
+            avatar: defaultAvatar
         }
     },
     created () {
@@ -82,6 +85,7 @@ export default {
         getUserInfo () {
             if (commonUtil.getCookie('userInfo')) {
                 this.userInfo = JSON.parse(commonUtil.getCookie('userInfo'))
+                this.avatar = this.userInfo.avatar ? 'http://localhost:3000/' + this.userInfo.avatar : defaultAvatar
                 this.isLogin = true
             }
         },
@@ -121,6 +125,11 @@ export default {
 
 .avatar {
     width: 20px;
+}
+
+.new-post-btn {
+    margin-left: 20px;
+    margin-right: 40px;
 }
 
 .wj-container {

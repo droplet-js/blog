@@ -27,6 +27,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(res => {
     return res.data
 }, err => {
+    console.log(err)
     console.log(err.response)
     if (!err.response) {
         return Promise.reject(err)
@@ -35,7 +36,7 @@ api.interceptors.response.use(res => {
     case REQUEST_UNRECORNIZED:
         commonUtil.delCookie('token')
         commonUtil.delCookie('userInfo')
-        router.push('/page')
+        router.push('/')
         break
     case REQUEST_FORBIDDEN:
         console.log('No Permission')

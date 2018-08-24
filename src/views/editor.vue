@@ -1,5 +1,5 @@
 <template>
-    <div class="editor">
+    <Container :open="loading">
         <form name="editor-area" id="editor-area">
             <div class="input-text">标题：</div>
             <input class="input-value" name="title" type="text" placeholder="请输入标题" v-model="title">
@@ -7,15 +7,19 @@
             <mavon-editor ref="md" class="input-content" name="content" v-model="content"></mavon-editor>
             <div class="input-text">关键词：</div>
             <input type="text" class="input-value" name="keyword" placeholder="请输入关键词" v-model="keyword">
-            <mu-button class="commit-btn" color="success" @click="onCommit">commit</mu-button>
+            <mu-button class="commit-btn" color="success" @click="onCommit">提交</mu-button>
         </form>
-    </div>
+    </Container>
 </template>
 
 <script>
+import Container from '../components/container'
 import Validator from '../utils/validator'
 import Page from '../api/page'
 export default {
+    components: {
+        Container
+    },
     data () {
         return {
             title: '', // 标题
@@ -26,7 +30,8 @@ export default {
                 type: 'error',
                 msg: ''
             },
-            showAlert: false // 是否显示alert框
+            showAlert: false, // 是否显示alert框
+            loading: false
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -105,7 +110,7 @@ export default {
 @import '../assets/css/variable.scss';
 
 #editor-area {
-    margin: 20px 20px 0 280px;
+    margin: 0 20px 0 24px;
     height: 100%;
 }
 
@@ -134,6 +139,7 @@ export default {
 
 .commit-btn {
     margin-top: 20px;
+    margin-bottom: 40px;
 }
 
 .mu-scale-transition-enter-active,

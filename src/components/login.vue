@@ -1,18 +1,18 @@
 <template>
     <div>
-        <mu-dialog class="login-dialog" title="Login" width="400" :open.sync="open" @close="closeOpenDialog" :overlay-close="false" :esc-press-close="false">
+        <mu-dialog class="login-dialog" title="登录" width="400" :open.sync="open" @close="closeOpenDialog" :overlay-close="false" :esc-press-close="false">
             <mu-form ref="form" :model="form" class="mu-demo-form" :label-position="labelPosition" label-width="100">
                 <input type="text" style="display:none;">
                 <input type="password" style="display:none;">
-                <mu-form-item prop="username" label="Username" :rules="usernameRules">
+                <mu-form-item prop="username" label="用户名" :rules="usernameRules">
                     <mu-text-field v-model="form.username" action-icon=":fa fa-user-o"></mu-text-field>
                 </mu-form-item>
-                <mu-form-item prop="password" label="Password" :rules="passwordRules">
+                <mu-form-item prop="password" label="密码" :rules="passwordRules">
                     <mu-text-field type="password" v-model="form.password" action-icon=":fa fa-eye"></mu-text-field>
                 </mu-form-item>
             </mu-form>
-            <mu-button slot="actions" flat color="primary" @click="onLogin">Login</mu-button>
-            <mu-button slot="actions" flat color="error" @click="closeOpenDialog">Close</mu-button>
+            <mu-button slot="actions" flat color="primary" @click="onLogin">确定</mu-button>
+            <mu-button slot="actions" flat color="error" @click="closeOpenDialog">关闭</mu-button>
         </mu-dialog>
     </div>
 </template>

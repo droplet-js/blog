@@ -18,6 +18,11 @@ export default {
         })
         return res
     },
+    // 修改个人信息
+    async modifyUserInfo (params) {
+        let res = await api.post('/modifyUserInfo', params)
+        return res
+    },
     // 上传图片
     async uploadImg (params) {
         let res = await api.post('/upload', params)

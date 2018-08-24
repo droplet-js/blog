@@ -35,6 +35,10 @@ const jwtUnlessOpts = {
         /^\/api\/getMenuList/,
         /^\/api\/getPage/,
         /^\/api\/getDetailPage/,
+        /^\/js/,
+        /^\/css/,
+        /^\/fonts/,
+        /.jpg$/
     ]
 }
 
@@ -44,6 +48,7 @@ const middlewares = [
     logger(),
     bodyParser(),
     serve(path.join(__dirname, config.publicPath)),
+    serve(path.join(__dirname, config.uploadPath)),
     // 验证是否需要token请求，unless是例外，不需要token就可以请求
     jwt(jwtOpts).unless(jwtUnlessOpts),
     errorHandler,
