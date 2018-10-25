@@ -20,26 +20,26 @@ const createLintingRule = () => ({
 })
 
 module.exports = {
-  context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname, '../'), // 当前项目路径
   entry: {
-    app: './src/main.js'
+    app: './src/main.js' // webpack打包的入口
   },
-  output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
+  output: { // webpack输出文件选项
+    path: config.build.assetsRoot, // 打包文件的输出目录
+    filename: '[name].js', // 输出文件名模板
+    publicPath: process.env.NODE_ENV === 'production' // 相对html页面解析的输出目录的url
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
-  resolve: {
+  resolve: { // 模块解析规则
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
     }
   },
-  module: {
-    rules: [
+  module: { // 模块配置
+    rules: [ // 配置模块loader,解析模块
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
         test: /\.vue$/,

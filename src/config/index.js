@@ -7,7 +7,8 @@ let config = {
         redirect_uri: 'http://localhost:8080/',
         authorization: '',
         scopes: {}
-    }
+    },
+    cdnUrl: 'http://localhost:3000/'
 }
 
 export default config

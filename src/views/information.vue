@@ -37,6 +37,7 @@ import Container from '../components/container'
 import commonUtil from '../utils/common'
 import defaultAvatar from '../assets/img/timg.jpg'
 import User from '../api/user'
+import config from '../config'
 export default {
     components: {
         Container
@@ -87,7 +88,7 @@ export default {
                 this.form.username = this.userInfo.username
                 this.form.phone = this.userInfo.phone
                 this.form.email = this.userInfo.email
-                this.form.avatar = this.userInfo.avatar ? 'http://localhost:3000/' + this.userInfo.avatar : defaultAvatar
+                this.form.avatar = this.userInfo.avatar ? config.cdnUrl + this.userInfo.avatar : defaultAvatar
             }
         },
         changeImage (files) {
@@ -115,7 +116,7 @@ export default {
             try {
                 let res = await User.uploadImg(formData)
                 if (res.code === 0 && res.data) {
-                    this.form.avatar = 'http://localhost:3000/' + res.data.avatar
+                    this.form.avatar = config.cdnUrl + res.data.avatar
                     commonUtil.cookies('userInfo', JSON.stringify(res.data))
                     this.$toast.success('上传成功!')
                 }
