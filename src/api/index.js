@@ -27,8 +27,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(res => {
     return res.data
 }, err => {
-    console.log(err)
-    console.log(err.response)
+    console.log(err.response.status)
+    console.log(err.response.statusText)
     if (!err.response) {
         return Promise.reject(err)
     }

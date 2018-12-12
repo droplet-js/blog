@@ -71,7 +71,7 @@ export default {
                 let res = await Menu.getMenuList()
                 res.code === 0 && (this.menuList = res.data)
             } catch (err) {
-                console.log(err)
+                console.log(`获取菜单列表失败：`, err)
             }
         },
         closeMenu (val) {

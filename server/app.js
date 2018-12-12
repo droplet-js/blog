@@ -44,7 +44,7 @@ const jwtUnlessOpts = {
 
 // middlewares
 const middlewares = [
-    convert(cors()),
+    // convert(cors()),
     logger(),
     bodyParser(),
     serve(path.join(__dirname, config.publicPath)),
