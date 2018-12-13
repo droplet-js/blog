@@ -14,6 +14,9 @@ module.exports = {
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
+        onProxyRes (proxyRes, req, res) {
+          console.log(proxyRes.headers)
+        }
         // pathRewrite: {
         //     '^/api': ''
         // },

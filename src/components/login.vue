@@ -70,6 +70,8 @@ export default {
                     commonUtil.setCookie('token', res.data, 3600 * 2)
                     this.closeOpenDialog()
                     this.$router.go(0)
+                } else if (res.code === -1) {
+                  this.$toast.error(res.data)
                 }
             } catch (err) {
                 console.log(err)
