@@ -1,4 +1,4 @@
-const { JsonError } = require('../utils/error')
+// const { JsonError } = require('../utils/error')
 /**
  * @description 异常处理
  * @author halapro.liu
@@ -6,15 +6,15 @@ const { JsonError } = require('../utils/error')
  * @param {*} next
  */
 const errorHandler = async (ctx, next) => {
-    try {
-        await next()
-    } catch (err) {
-        ctx.status = err.statusCode || err.status || '500'
-        ctx.body = {
-            code: ctx.status,
-            message: err.message
-        }
+  try {
+    await next()
+  } catch (err) {
+    ctx.status = err.statusCode || err.status || '500'
+    ctx.body = {
+      code: ctx.status,
+      message: err.message
     }
+  }
 }
 
 module.exports = errorHandler

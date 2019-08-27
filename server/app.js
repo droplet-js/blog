@@ -1,4 +1,3 @@
-const fs = require('fs')
 const path = require('path')
 const config = require('./config')
 const router = require('./router')
@@ -23,59 +22,59 @@ const port = config.port || '8080'
 
 const secret = Token.getSecret('public.pem')
 const jwtOpts = {
-    secret,
-    isRevoked: Token.isRevoked, // 判断token是否过期
-    tokenKey: 'token' // 设置ctx.state.token
+  secret,
+  isRevoked: Token.isRevoked, // 判断token是否过期
+  tokenKey: 'token' // 设置ctx.state.token
 }
 
 const jwtUnlessOpts = {
-    path: [
-        /^\/api\/register/,
-        /^\/api\/login/,
-        /^\/api\/getMenuList/,
-        /^\/api\/getPage/,
-        /^\/api\/getDetailPage/,
-        /^\/js/,
-        /^\/css/,
-        /^\/fonts/,
-        /.jpg$/
-    ]
+  path: [
+    /^\/api\/register/,
+    /^\/api\/login/,
+    /^\/api\/getMenuList/,
+    /^\/api\/getPage/,
+    /^\/api\/getDetailPage/,
+    /^\/js/,
+    /^\/css/,
+    /^\/fonts/,
+    /.jpg$/
+  ]
 }
 
 // middlewares
 const middlewares = [
-    convert(cors()),
-    logger(),
-    bodyParser(),
-    serve(path.join(__dirname, config.publicPath)),
-    serve(path.join(__dirname, config.uploadPath)),
-    // 验证是否需要token请求，unless是例外，不需要token就可以请求
-    jwt(jwtOpts).unless(jwtUnlessOpts),
-    errorHandler,
-    router.routes(),
-    router.allowedMethods()
+  convert(cors()),
+  logger(),
+  bodyParser(),
+  serve(path.join(__dirname, config.publicPath)),
+  serve(path.join(__dirname, config.uploadPath)),
+  // 验证是否需要token请求，unless是例外，不需要token就可以请求
+  jwt(jwtOpts).unless(jwtUnlessOpts),
+  errorHandler,
+  router.routes(),
+  router.allowedMethods()
 ]
 
 middlewares.forEach(middleware => {
-    if (!middleware) {
-        return
-    }
-    app.use(middleware)
+  if (!middleware) {
+    return
+  }
+  app.use(middleware)
 })
 
-app.on('error', (err) => {
-    log('cyan', err)
+app.on('error', err => {
+  log('cyan', err)
 })
 
 // koa static server
 const server = app.listen(port, () => {
-    log('magenta', 'The server is start on port ' + port)
+  log('magenta', 'The server is start on port ' + port)
 })
 
 // terminal ctrl+c to exit the server
 process.on('SIGINT', () => {
-    log('yellow', 'Stopping dev server')
-    server.close(() => {
-        process.exit(0)
-    })
+  log('yellow', 'Stopping dev server')
+  server.close(() => {
+    process.exit(0)
+  })
 })
