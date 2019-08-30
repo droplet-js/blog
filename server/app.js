@@ -56,9 +56,7 @@ const middlewares = [
 ]
 
 middlewares.forEach(middleware => {
-  if (!middleware) {
-    return
-  }
+  if (!middleware) return
   app.use(middleware)
 })
 

@@ -8,30 +8,47 @@ Promise.polyfill()
 Vue.use(MuseUI)
 
 function getRendererProps (Component, propsData, key) {
-    const Constructor = Vue.extend(Component)
-    const vm = new Constructor({ propsData }).$mount()
-    return vm._props[key]
+  const Constructor = Vue.extend(Component)
+  const vm = new Constructor({ propsData }).$mount()
+  return vm._props[key]
 }
 
 describe('Menu.vue', () => {
-    it('render Correctly with diffrent props', () => {
-        expect(getRendererProps(Menu, {
-            open: true
-        }, 'open')).to.equal(true)
+  it('render Correctly with diffrent props', () => {
+    expect(
+      getRendererProps(
+        Menu,
+        {
+          open: true
+        },
+        'open'
+      )
+    ).to.equal(true)
 
-        expect(getRendererProps(Menu, {
-            docked: true
-        }, 'docked')).to.equal(true)
+    expect(
+      getRendererProps(
+        Menu,
+        {
+          docked: true
+        },
+        'docked'
+      )
+    ).to.equal(true)
 
-        expect(getRendererProps(Menu, {
-            position: 'right'
-        }, 'position')).to.equal('right')
+    expect(
+      getRendererProps(
+        Menu,
+        {
+          position: 'right'
+        },
+        'position'
+      )
+    ).to.equal('right')
+  })
+
+  it('get data by axios', () => {
+    api.get('/getMenuList').then(res => {
+      expect(res.code).to.equal(0)
     })
-
-    it('get data by axios', () => {
-        api.get('/getMenuList')
-            .then(res => {
-                expect(res.code).to.equal(0)
-            })
-    })
+  })
 })
