@@ -3,12 +3,15 @@ const baseModel = require('./base_model')
 const Schema = mongoose.Schema
 
 let keywordSchema = new Schema({
+  id: String,
   name: String,
-  createAt: { // 创建时间
+  createAt: {
+    // 创建时间
     type: Date,
     default: Date.now()
   },
-  updateAt: { // 修改时间
+  updateAt: {
+    // 修改时间
     type: Date,
     default: Date.now()
   }

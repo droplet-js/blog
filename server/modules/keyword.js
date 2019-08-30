@@ -1,21 +1,16 @@
 const Keyword = require('../models/keyword')
 
 module.exports = {
-  async saveKeyword (keyword) {
-    let arr = keyword.split(',') || []
-    if (arr.length > 0) {
-      arr.forEach(item => {
-        Keyword.findOneAndUpdate(
-          { name: item },
-          { name: item },
-          {
-            upsert: true
-          },
-          data => {
-            console.log('insert ' + item + 'into keyword success')
-          }
-        )
-      })
-    }
+  // 保存标签
+  async saveKeyword (id, keyword) {
+    let data = await Keyword.create({ id, keyword })
+    return data
+  },
+  // 更新标签
+  async updateKeyword (id, keyword) {
+    let data = await Keyword.findOne({ id })
+    if (!data) return
+    data.keyword = keyword
+    return data.save()
   }
 }

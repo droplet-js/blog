@@ -8,7 +8,14 @@
           <mu-text-field action-icon=":fa fa-user-o" v-model="form.username"></mu-text-field>
         </mu-form-item>
         <mu-form-item :rules="passwordRules" label="密码" prop="password">
-          <mu-text-field action-icon=":fa fa-eye" type="password" v-model="form.password"></mu-text-field>
+          <!-- <mu-text-field action-icon=":fa fa-eye" type="password" v-model="form.password"></mu-text-field> -->
+          <mu-text-field
+            :action-click="() => (visibility = !visibility)"
+            :action-icon="visibility ? 'visibility_off' : 'visibility'"
+            :type="visibility ? 'text' : 'password'"
+            @keyup.enter="onLogin"
+            v-model="form.password"
+          ></mu-text-field>
         </mu-form-item>
       </mu-form>
       <mu-button @click="onLogin" color="primary" flat slot="actions">确定</mu-button>
@@ -36,7 +43,8 @@ export default {
         username: '',
         password: ''
       },
-      labelPosition: 'top'
+      labelPosition: 'top',
+      visibility: false
     }
   },
   mounted () {
@@ -64,10 +72,14 @@ export default {
           commonUtil.setCookie('token', res.data, 3600 * 2)
           this.closeOpenDialog()
           this.$router.go(0)
+        } else {
+          this.$toast.error('登录失败！')
+          this.form.password = ''
         }
       } catch (err) {
         console.log(err)
         this.$toast.error('登录失败！')
+        this.form.password = ''
       }
     },
     closeOpenDialog () {

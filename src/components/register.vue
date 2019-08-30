@@ -3,16 +3,16 @@
     <mu-dialog :esc-press-close="false" :open.sync="open" :overlay-close="false" @close="closeOpenDialog" class="login-dialog" title="注册" width="400">
       <mu-form :label-position="labelPosition" :model="form" label-width="100" ref="form">
         <mu-form-item :rules="usernameRules" label="用户名" prop="username">
-          <mu-text-field action-icon=":fa fa-user-o" type="text" v-model="form.username"></mu-text-field>
+          <mu-text-field @keyup.enter="onRegister" action-icon=":fa fa-user-o" type="text" v-model="form.username"></mu-text-field>
         </mu-form-item>
         <mu-form-item :rules="passwordRules" label="密码" prop="password">
-          <mu-text-field action-icon=":fa fa-eye" type="text" v-model="form.password"></mu-text-field>
+          <mu-text-field @keyup.enter="onRegister" action-icon=":fa fa-eye" type="text" v-model="form.password"></mu-text-field>
         </mu-form-item>
         <mu-form-item :rules="phoneRules" label="手机号" prop="phone">
-          <mu-text-field action-icon=":fa fa-phone" type="text" v-model="form.phone"></mu-text-field>
+          <mu-text-field @keyup.enter="onRegister" action-icon=":fa fa-phone" type="text" v-model="form.phone"></mu-text-field>
         </mu-form-item>
         <mu-form-item :rules="emailRules" label="邮箱" prop="email">
-          <mu-text-field action-icon=":fa fa-envelope" type="text" v-model="form.email"></mu-text-field>
+          <mu-text-field @keyup.enter="onRegister" action-icon=":fa fa-envelope" type="text" v-model="form.email"></mu-text-field>
         </mu-form-item>
       </mu-form>
       <mu-button @click="onRegister" color="primary" flat slot="actions">确定</mu-button>

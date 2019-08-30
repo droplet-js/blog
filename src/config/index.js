@@ -1,5 +1,5 @@
 let config = {
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'http://localhost:3001/api',
   secretKey: 'halapro',
   oAuth: {
     providerID: 'halapro.liu',

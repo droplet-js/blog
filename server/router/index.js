@@ -26,6 +26,7 @@ router.get('/getMenuList', Menu.getMenuList)
 router.get('/getPage', Page.getPage)
 router.get('/getDetailPage', Page.getDetailPage)
 router.post('/savePage', Page.savePage)
+router.post('/updatePage', Page.updatePage)
 router.post('/upload', upload.single('avatar'), async ctx => {
   const { filename } = ctx.req.file
   ctx.state.avatar = filename

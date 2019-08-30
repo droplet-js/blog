@@ -5,7 +5,8 @@
         <mu-icon size="18" value=":fa fa-user"></mu-icon>
       </mu-button>
       <mu-button @click="openLoginDialog" icon slot="right" v-if="!isLogin">
-        <mu-icon size="18" value=":fa fa-sign-in"></mu-icon>
+        <!-- <mu-icon size="18" value=":fa fa-sign-in"></mu-icon> -->
+        <i class="material-icons">account_circle</i>
       </mu-button>
       <mu-flex align-items="center" slot="right" v-if="isLogin">
         <mu-menu open-on-hover placement="bottom-start">

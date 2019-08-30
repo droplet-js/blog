@@ -7,7 +7,9 @@
       <mavon-editor class="input-content" name="content" ref="md" v-model="content"></mavon-editor>
       <div class="input-text">关键词：</div>
       <input class="input-value" name="keyword" placeholder="请输入关键词" type="text" v-model="keyword" />
-      <mu-button @click="onCommit" class="commit-btn" color="success">提交</mu-button>
+      <mu-button @click="onCommit" class="commit-btn" color="success" v-if="!isEdit">提交</mu-button>
+      <mu-button @click="onUpdate" class="commit-btn" color="success" v-if="isEdit">更新</mu-button>
+      <mu-button @click="onCancel" class="commit-btn" color="red">取消</mu-button>
     </form>
   </Container>
 </template>
@@ -32,7 +34,8 @@ export default {
         msg: ''
       },
       showAlert: false, // 是否显示alert框
-      loading: false
+      loading: false,
+      isEdit: false
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -89,6 +92,20 @@ export default {
         console.log(err)
       }
     },
+    async onUpdate () {
+      let id = this.$route.params.id
+      try {
+        let res = await Page.updatePage({id})
+        if (res.code === 0) {
+          this.$router.back()
+        }
+      } catch (e) {
+        this.$toast.error('更新文章失败！')
+      }
+    },
+    onCancel () {
+      this.$router.back()
+    },
     clear () {
       this.title = ''
       this.content = ''
@@ -99,6 +116,8 @@ export default {
     $route (to, from) {
       if (!to.params.id) {
         this.clear()
+      } else {
+        this.isEdit = true
       }
     }
   }
