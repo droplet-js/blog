@@ -5,6 +5,9 @@
       <mu-button :color="colors.bgcolor" @click="editPage" v-show="isLogin">编辑</mu-button>
     </div>
     <div class="content" v-html="content"></div>
+    <div class="tag-wrapper">
+      <div :key="index" class="tag" v-for="(tag, index) in tags">{{tag}}</div>
+    </div>
   </Container>
 </template>
 
@@ -27,7 +30,8 @@ export default {
       content: '',
       loading: false,
       userInfo: {},
-      isLogin: false
+      isLogin: false,
+      tags: []
     }
   },
   beforeRouteEnter (to, from, next) {
@@ -65,6 +69,7 @@ export default {
         if (res.code === 0) {
           this.loading = false
           this.detail = res.data
+          this.tags = this.detail.keyword.split(',')
           this.getContent(this.detail.content)
         }
       } catch (err) {
@@ -128,5 +133,21 @@ export default {
   text-align: left;
   margin: 0 40px;
   margin-bottom: 40px;
+}
+
+.tag-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+.tag {
+  background: #ccc;
+  padding: 5px;
+  border-radius: 10px;
+  margin-left: 40px;
+  margin-bottom: 10px;
+  &:nth-child(n + 2) {
+    margin-left: 10px;
+  }
 }
 </style>

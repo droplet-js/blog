@@ -3,7 +3,7 @@ const Menu = require('../models/menu')
 
 module.exports = {
   // 获取菜单列表
-  async getMenuList (ctx, next) {
+  async getMenuList (ctx) {
     let data
     try {
       if (ctx.state.token || ctx.header.authorization) {

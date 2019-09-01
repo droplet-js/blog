@@ -5,11 +5,11 @@ const UUID = require('./uuid')
 
 module.exports = {
   // 保存文章
-  async savePage(ctx, next) {
+  async savePage (ctx, next) {
     let { title, content, keyword } = ctx.request.body
     let uuid = await UUID.getUUID('page')
     try {
-      let keyData = await Keyword.saveKeyword(uuid, keyword)
+      let keyData = await Keyword.saveKeyword(keyword)
       if (keyData) {
         // 获取uuid
         let data = await Page.create({ id: uuid, title, content, keyword })
@@ -22,7 +22,7 @@ module.exports = {
     }
   },
   // 获取文章
-  async getPage(ctx, next) {
+  async getPage (ctx, next) {
     let { current, pageSize } = ctx.request.query
     current = Number(current)
     pageSize = Number(pageSize) || 5
@@ -46,7 +46,7 @@ module.exports = {
     }
   },
   // 通过id获取文章详情
-  async getDetailPage(ctx, next) {
+  async getDetailPage (ctx, next) {
     let { id } = ctx.request.query
     id = Number(id)
     try {
@@ -57,13 +57,14 @@ module.exports = {
     }
   },
   // 更新文章
-  async updatePage(ctx) {
+  async updatePage (ctx) {
     let { id, content, keyword } = ctx.request.body
     id = Number(id)
     try {
-      let data = await Page.findOne({ id })
-      let keyData = await Keyword.updateKeyword(id, keyword)
+      let keyData = await Keyword.updateKeyword(keyword)
       if (keyData) {
+        let data = await Page.findOne({ id })
+        data.name = keyword
         data.content = content
         data.save()
         ctx.body = { code: 0, data: data }

@@ -19,5 +19,10 @@ export default {
   async savePage (params) {
     let res = await api.post('/savePage', params)
     return res
+  },
+  // 更新文章
+  async updatePage (params) {
+    let res = await api.post('/updatePage', params)
+    return res
   }
 }

@@ -3,7 +3,6 @@ const baseModel = require('./base_model')
 const Schema = mongoose.Schema
 
 let keywordSchema = new Schema({
-  id: String,
   name: String,
   createAt: {
     // 创建时间

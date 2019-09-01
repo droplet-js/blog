@@ -41,6 +41,7 @@ export default {
   beforeRouteEnter (to, from, next) {
     next(vm => {
       if (to.params && to.params.id) {
+        vm.isEdit = true
         vm.getDetailPage()
       }
     })
@@ -95,7 +96,7 @@ export default {
     async onUpdate () {
       let id = this.$route.params.id
       try {
-        let res = await Page.updatePage({id})
+        let res = await Page.updatePage({id, keyword: this.keyword, content: this.content})
         if (res.code === 0) {
           this.$router.back()
         }
@@ -116,8 +117,6 @@ export default {
     $route (to, from) {
       if (!to.params.id) {
         this.clear()
-      } else {
-        this.isEdit = true
       }
     }
   }
