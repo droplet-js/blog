@@ -64,7 +64,7 @@ module.exports = {
       let keyData = await Keyword.updateKeyword(keyword)
       if (keyData) {
         let data = await Page.findOne({ id })
-        data.name = keyword
+        data.keyword = keyword
         data.content = content
         data.save()
         ctx.body = { code: 0, data: data }
